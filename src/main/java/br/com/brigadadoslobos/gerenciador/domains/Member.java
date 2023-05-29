@@ -1,30 +1,45 @@
 package br.com.brigadadoslobos.gerenciador.domains;
 
 import br.com.brigadadoslobos.gerenciador.domains.enums.Profile;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Member {
+@Entity
+public class Member implements Serializable {
+    private  static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
     protected String firsName;
     protected String lastName;
     protected String nickName;
     protected String rg;
+    @Column(unique = true)
     protected String cpf;
     protected String cnh;
     protected String celPhone;
     protected String phone;
     protected String familiarPhone1;
     protected String familiarPhone2;
+    @Column(unique = true)
     protected String email;
     protected String password;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate birthDate;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate admissionDate;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate shutdowDate;
+
+    @ElementCollection(fetch =  FetchType.EAGER)
+    @CollectionTable(name = "PROFILES")
     protected Set<Integer> profile = new HashSet<>();
     protected Set<HeadQuarter> headQuarter = new HashSet<>();
     protected Set<Address> address = new HashSet<>();
