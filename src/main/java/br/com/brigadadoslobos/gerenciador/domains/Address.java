@@ -1,9 +1,13 @@
 package br.com.brigadadoslobos.gerenciador.domains;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.io.Serializable;
 
-public class Address {
+@Entity
+public class Address implements Serializable {
+    private  static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String logradouro;
     private String number;
