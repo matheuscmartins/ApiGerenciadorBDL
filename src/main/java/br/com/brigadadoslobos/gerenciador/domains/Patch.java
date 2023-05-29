@@ -1,7 +1,15 @@
 package br.com.brigadadoslobos.gerenciador.domains;
 
-public class Patch {
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity
+public class Patch implements Serializable {
+    private  static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(unique = true)
     private String description;
     public Patch(){}
 
