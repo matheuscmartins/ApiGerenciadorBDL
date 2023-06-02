@@ -6,50 +6,58 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
 public class Member implements Serializable {
-    private  static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer id;
-    protected String firsName;
-    protected String lastName;
-    protected String nickName;
-    protected String rg;
+    private Integer id;
+    private String firsName;
+    private String lastName;
+    private String nickName;
+    private String rg;
     @Column(unique = true)
-    protected String cpf;
-    protected String cnh;
-    protected String celPhone;
-    protected String phone;
-    protected String familiarPhone1;
-    protected String familiarPhone2;
+    private String cpf;
+    private String cnh;
+    private String celPhone;
+    private String phone;
+    private String familiarPhone1;
+    private String familiarPhone2;
     @Column(unique = true)
-    protected String email;
-    protected String password;
+    private String email;
+    private String password;
     @JsonFormat(pattern = "dd/MM/yyyy")
-    protected LocalDate birthDate;
+    private LocalDate birthDate;
     @JsonFormat(pattern = "dd/MM/yyyy")
-    protected LocalDate admissionDate;
+    private LocalDate admissionDate;
     @JsonFormat(pattern = "dd/MM/yyyy")
-    protected LocalDate shutdowDate;
-
-    @ElementCollection(fetch =  FetchType.EAGER)
+    private LocalDate shutdowDate;
+    @OneToMany(mappedBy = "member")
+    private List<MemberPatch> memberPatchList = new ArrayList<>();
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "PROFILES")
-    protected Set<Integer> profile = new HashSet<>();
-    protected Set<HeadQuarter> headQuarter = new HashSet<>();
-    protected Set<Address> address = new HashSet<>();
-    protected Set<BloodType> bloodType = new HashSet<>();
+    private Set<Integer> profile = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "headQuarter_id")
+    private HeadQuarter headQuarter;
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
+    @ManyToOne
+    @JoinColumn(name = "bloodType_id")
+    private BloodType bloodType;
 
-    public Member(){
+    public Member() {
         addProfile(Profile.USUARIO);
     }
 
-    public Member(Integer id, String firsName, String lastName, String nickName, String rg, String cpf, String cnh, String celPhone, String phone, String familiarPhone1, String familiarPhone2, String email, String password, LocalDate birthDate, LocalDate admissionDate, LocalDate shutdowDate) {
+    public Member(Integer id, String firsName, String lastName, String nickName, String rg, String cpf, String cnh,
+                  String celPhone, String phone, String familiarPhone1, String familiarPhone2,
+                  String email, String password, LocalDate birthDate, LocalDate admissionDate,
+                  LocalDate shutdowDate, HeadQuarter headQuarter, Address address, BloodType bloodType) {
         this.id = id;
         this.firsName = firsName;
         this.lastName = lastName;
@@ -67,6 +75,17 @@ public class Member implements Serializable {
         this.admissionDate = admissionDate;
         this.shutdowDate = shutdowDate;
         addProfile(Profile.USUARIO);
+        this.headQuarter = headQuarter;
+        this.address = address;
+        this.bloodType = bloodType;
+    }
+
+    public List<MemberPatch> getMemberPatch() {
+        return memberPatchList;
+    }
+
+    public void setMemberPatch(List<MemberPatch> memberPatch) {
+        this.memberPatchList = memberPatch;
     }
 
     public Integer getId() {
@@ -189,6 +208,14 @@ public class Member implements Serializable {
         this.admissionDate = admissionDate;
     }
 
+    public HeadQuarter getHeadQuarter() {
+        return headQuarter;
+    }
+
+    public void setHeadQuarter(HeadQuarter headQuarter) {
+        this.headQuarter = headQuarter;
+    }
+
     public LocalDate getShutdowDate() {
         return shutdowDate;
     }
@@ -196,12 +223,39 @@ public class Member implements Serializable {
     public void setShutdowDate(LocalDate shutdowDate) {
         this.shutdowDate = shutdowDate;
     }
-    public Set<Profile> getProfiles(){
+
+    public BloodType getBloodType() {
+        return bloodType;
+    }
+
+    public void setBloodType(BloodType bloodType) {
+        this.bloodType = bloodType;
+    }
+
+    public Set<Profile> getProfiles() {
         return profile.stream().map(x -> Profile.toEnum(x)).collect(Collectors.toSet());
     }
-    public void addProfile(Profile profile){
+
+    public List<MemberPatch> getMemberPatchList() {
+        return memberPatchList;
+    }
+
+    public void setMemberPatchList(List<MemberPatch> memberPatchList) {
+        this.memberPatchList = memberPatchList;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public void addProfile(Profile profile) {
         this.profile.add(profile.getId());
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -214,4 +268,6 @@ public class Member implements Serializable {
     public int hashCode() {
         return Objects.hash(id, cpf);
     }
+
+
 }

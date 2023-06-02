@@ -1,25 +1,32 @@
 package br.com.brigadadoslobos.gerenciador.domains;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-public class Uf  implements Serializable {
-    private  static final long serialVersionUID = 1L;
+public class Uf implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer description;
-    public Uf(){
+    @Column(unique = true)
+    private String description;
+    @ManyToOne
+    @JoinColumn(name = "country_id")
+    private Country country;
+    @OneToMany(mappedBy = "uf")
+    private List<City> citys = new ArrayList<>();
 
+    public Uf() {
     }
 
-    public Uf(Integer id, Integer description) {
+    public Uf(Integer id, String description, Country country) {
         this.id = id;
         this.description = description;
+        this.country = country;
     }
 
     public Integer getId() {
@@ -30,11 +37,27 @@ public class Uf  implements Serializable {
         this.id = id;
     }
 
-    public Integer getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(Integer description) {
+    public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    public List<City> getCitys() {
+        return citys;
+    }
+
+    public void setCitys(List<City> citys) {
+        this.citys = citys;
     }
 }

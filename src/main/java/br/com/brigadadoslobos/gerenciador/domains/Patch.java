@@ -5,13 +5,16 @@ import java.io.Serializable;
 
 @Entity
 public class Patch implements Serializable {
-    private  static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(unique = true)
     private String description;
-    public Patch(){}
+
+    public Patch() {
+    }
 
     public Patch(Integer id, String description) {
         this.id = id;

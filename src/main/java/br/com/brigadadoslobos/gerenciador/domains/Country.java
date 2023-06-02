@@ -13,7 +13,6 @@ public class Country implements Serializable {
     private Integer id;
     @Column(unique = true)
     private String name;
-
     @OneToMany(mappedBy = "country")
     private List<Uf> ufs = new ArrayList<>();
 

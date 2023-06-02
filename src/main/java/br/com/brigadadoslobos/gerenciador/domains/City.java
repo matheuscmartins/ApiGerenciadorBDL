@@ -2,10 +2,12 @@ package br.com.brigadadoslobos.gerenciador.domains;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class City implements Serializable {
-    private  static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -13,14 +15,16 @@ public class City implements Serializable {
     @ManyToOne
     @JoinColumn(name = "uf_id")
     private Uf uf;
+    @OneToMany(mappedBy = "city")
+    private List<Address> addresses = new ArrayList<>();
 
-    public City(){
-
+    public City() {
     }
 
-    public City(Integer id, String name) {
+    public City(Integer id, String name, Uf uf) {
         this.id = id;
         this.name = name;
+        this.uf = uf;
     }
 
     public Integer getId() {
@@ -45,5 +49,13 @@ public class City implements Serializable {
 
     public void setUf(Uf uf) {
         this.uf = uf;
+    }
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
     }
 }

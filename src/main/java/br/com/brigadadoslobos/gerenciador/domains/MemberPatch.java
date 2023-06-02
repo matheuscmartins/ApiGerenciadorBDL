@@ -5,10 +5,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-@Entity
-public class MemberPatch  implements Serializable {
-    private  static final long serialVersionUID = 1L;
 
+@Entity
+public class MemberPatch implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -18,18 +19,20 @@ public class MemberPatch  implements Serializable {
     private LocalDate admissionDate;
     @ManyToOne
     @JoinColumn(name = "member_id")
-    private Member Member;
+    private Member member;
     @ManyToOne
     @JoinColumn(name = "patch_id")
     private Patch patch;
-    public MemberPatch(){
 
+    public MemberPatch() {
     }
 
-    public MemberPatch(Integer id, String description, LocalDate admissionDate) {
+    public MemberPatch(Integer id, String description, LocalDate admissionDate, Member member, Patch patch) {
         this.id = id;
         this.description = description;
         this.admissionDate = admissionDate;
+        this.member = member;
+        this.patch = patch;
     }
 
     public Integer getId() {
@@ -57,11 +60,10 @@ public class MemberPatch  implements Serializable {
     }
 
     public br.com.brigadadoslobos.gerenciador.domains.Member getMember() {
-        return Member;
+        return member;
     }
 
     public void setMember(br.com.brigadadoslobos.gerenciador.domains.Member member) {
-        Member = member;
     }
 
     public Patch getPatch() {
