@@ -11,6 +11,18 @@ public class HeadQuarter implements Serializable {
     private Integer id;
     private String description;
 
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     public HeadQuarter() {
     }
 
