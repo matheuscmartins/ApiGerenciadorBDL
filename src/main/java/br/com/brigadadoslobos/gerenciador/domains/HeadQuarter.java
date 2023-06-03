@@ -26,9 +26,10 @@ public class HeadQuarter implements Serializable {
     public HeadQuarter() {
     }
 
-    public HeadQuarter(Integer id, String description) {
+    public HeadQuarter(Integer id, String description,Address address) {
         this.id = id;
         this.description = description;
+        this.address = address;
     }
 
     public Integer getId() {
