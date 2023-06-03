@@ -1,8 +1,7 @@
 package br.com.brigadadoslobos.gerenciador.repositories;
 
+import br.com.brigadadoslobos.gerenciador.domains.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.lang.reflect.Member;
-
-public interface MemberRepository extends JpaRepository<Member, Integer> {
+public interface MemberRepository extends JpaRepository <Member, Integer> {
 }
