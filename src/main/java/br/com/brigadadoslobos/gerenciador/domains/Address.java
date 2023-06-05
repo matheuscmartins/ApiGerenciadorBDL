@@ -1,6 +1,7 @@
 package br.com.brigadadoslobos.gerenciador.domains;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 @Entity
@@ -9,9 +10,14 @@ public class Address implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(nullable = false, length = 100)
+    @NotEmpty(message = "O campo logradouro (rua, av. ou travessa) é obrigatorio")
     private String logradouro;
+    @Column( length = 10)
     private String number;
+    @Column( length = 50)
     private String adressComplement;
+    @Column( length = 10)
     private String postCode;
     @ManyToOne
     @JoinColumn(name = "city_id")

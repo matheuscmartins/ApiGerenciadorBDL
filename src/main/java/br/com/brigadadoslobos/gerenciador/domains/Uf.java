@@ -12,8 +12,10 @@ public class Uf implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(length = 100)
+    private String name;
     @Column(unique = true)
-    private String description;
+    private String acronym;
     @ManyToOne
     @JoinColumn(name = "country_id")
     private Country country;
@@ -23,9 +25,10 @@ public class Uf implements Serializable {
     public Uf() {
     }
 
-    public Uf(Integer id, String description, Country country) {
+    public Uf(Integer id, String name, String acronym, Country country) {
         this.id = id;
-        this.description = description;
+        this.name= name;
+        this.acronym = acronym;
         this.country = country;
     }
 
@@ -37,12 +40,20 @@ public class Uf implements Serializable {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
+    public String getName() {
+        return name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAcronym() {
+        return acronym;
+    }
+
+    public void setAcronym(String acronym) {
+        this.acronym = acronym;
     }
 
     public Country getCountry() {

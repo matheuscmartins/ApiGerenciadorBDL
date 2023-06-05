@@ -11,7 +11,7 @@ public class Country implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(unique = true)
+    @Column(nullable = false, length = 100, unique = true)
     private String name;
     @OneToMany(mappedBy = "country")
     private List<Uf> ufs = new ArrayList<>();

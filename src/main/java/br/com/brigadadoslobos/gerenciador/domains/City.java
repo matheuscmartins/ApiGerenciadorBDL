@@ -1,6 +1,7 @@
 package br.com.brigadadoslobos.gerenciador.domains;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,8 @@ public class City implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(nullable = false, length = 100)
+    @NotEmpty(message = "O campo nome da cidade é obrigatorio")
     private String name;
     @ManyToOne
     @JoinColumn(name = "uf_id")

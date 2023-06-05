@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 
 @Service
-public class DBServices {
+public class DBService {
     @Autowired
     private BloodTypeRepository bloodTypeRepository;
     @Autowired
@@ -29,15 +29,15 @@ public class DBServices {
     private AddressRepository addressRepository;
     @Autowired
     private HeadQuarterRepository headQuarterRepository;
-    public void instanciaDb(){
+    public void instanciaDB(){
         BloodType bloodType1 = new BloodType(null, "A+");
         BloodType bloodType2 = new BloodType(null, "O-");
         bloodTypeRepository.saveAll(Arrays.asList(bloodType1, bloodType2));
         Country country1 = new Country(null, "Brasil");
         countryRepository.saveAll(Arrays.asList(country1));
-        Uf uf1 = new Uf(null, "SP", country1);
-        Uf uf2 = new Uf(null, "PR", country1);
-        Uf uf3 = new Uf(null, "MT", country1);
+        Uf uf1 = new Uf(null,"São Paulo", "SP", country1);
+        Uf uf2 = new Uf(null,"Paraná", "PR", country1);
+        Uf uf3 = new Uf(null,"Mato Grosso", "MT", country1);
         ufRepository.saveAll(Arrays.asList(uf1, uf2, uf2));
         City city1 = new City(null, "Maringá", uf2);
         City city2 = new City(null, "Presidente Prudente", uf1);
