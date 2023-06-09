@@ -1,6 +1,7 @@
 package br.com.brigadadoslobos.gerenciador.resources;
 
 import br.com.brigadadoslobos.gerenciador.domains.Member;
+import br.com.brigadadoslobos.gerenciador.domains.dtos.MemberDTO;
 import br.com.brigadadoslobos.gerenciador.services.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +17,8 @@ public class MemberResource {
     private MemberService service;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Member> findById(@PathVariable Integer id) {
+    public ResponseEntity<MemberDTO> findById(@PathVariable Integer id) {
         Member obj = service.findById(id);
-        return ResponseEntity.ok().body(obj);
+        return ResponseEntity.ok().body(new MemberDTO(obj));
     }
 }
