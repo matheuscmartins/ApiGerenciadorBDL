@@ -15,24 +15,24 @@ public class Member implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column( length = 20)
+    @Column(length = 20)
     private String firsName;
-    @Column( length = 100)
+    @Column(length = 100)
     private String lastName;
-    @Column( length = 20)
+    @Column(length = 20)
     private String nickName;
-    @Column( length = 20)
+    @Column(length = 20)
     private String rg;
     @Column(unique = true)
     private String cpf;
-    @Column( length = 50)
+    @Column(length = 50)
     private String cnh;
-    @Column( length = 50)
+    @Column(length = 50)
     private String celPhone;
     private String phone;
-    @Column( length = 100)
+    @Column(length = 100)
     private String familiarPhone1;
-    @Column( length = 100)
+    @Column(length = 100)
     private String familiarPhone2;
     @Column(unique = true)
     private String email;
@@ -243,6 +243,7 @@ public class Member implements Serializable {
     public Set<Profile> getProfiles() {
         return profile.stream().map(x -> Profile.toEnum(x)).collect(Collectors.toSet());
     }
+
     public Address getAddress() {
         return address;
     }
