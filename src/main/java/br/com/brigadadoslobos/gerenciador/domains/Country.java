@@ -1,5 +1,7 @@
 package br.com.brigadadoslobos.gerenciador.domains;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,6 +15,7 @@ public class Country implements Serializable {
     private Integer id;
     @Column(nullable = false, length = 100, unique = true)
     private String name;
+    @JsonBackReference
     @OneToMany(mappedBy = "country")
     private List<Uf> ufs = new ArrayList<>();
 
@@ -40,11 +43,11 @@ public class Country implements Serializable {
         this.name = name;
     }
 
-    public List<Uf> getUfss() {
+    public List<Uf> getUfs() {
         return ufs;
     }
 
-    public void setChamados(List<Uf> ufs) {
+    public void setUfs(List<Uf> ufs) {
         this.ufs = ufs;
     }
 }

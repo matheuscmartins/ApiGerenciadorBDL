@@ -1,5 +1,6 @@
 package br.com.brigadadoslobos.gerenciador.domains;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
@@ -17,9 +18,11 @@ public class MemberPatch implements Serializable {
     @Column(nullable = false)
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate admissionDate;
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
+
     @ManyToOne
     @JoinColumn(name = "patch_id")
     private Patch patch;

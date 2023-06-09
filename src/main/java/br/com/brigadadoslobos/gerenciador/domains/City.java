@@ -1,5 +1,7 @@
 package br.com.brigadadoslobos.gerenciador.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
@@ -18,6 +20,7 @@ public class City implements Serializable {
     @ManyToOne
     @JoinColumn(name = "uf_id")
     private Uf uf;
+    @JsonIgnore
     @OneToMany(mappedBy = "city")
     private List<Address> addresses = new ArrayList<>();
 

@@ -1,7 +1,11 @@
 package br.com.brigadadoslobos.gerenciador.domains;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Patch implements Serializable {
@@ -12,6 +16,9 @@ public class Patch implements Serializable {
     private Integer id;
     @Column(unique = true)
     private String description;
+    @JsonBackReference
+    @OneToMany(mappedBy = "patch")
+    private List<MemberPatch> memberPatchList = new ArrayList<>();
 
     public Patch() {
     }
@@ -35,5 +42,12 @@ public class Patch implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    public List<MemberPatch> getMemberPatchList() {
+        return memberPatchList;
+    }
+
+    public void setMemberPatchList(List<MemberPatch> memberPatchList) {
+        this.memberPatchList = memberPatchList;
     }
 }

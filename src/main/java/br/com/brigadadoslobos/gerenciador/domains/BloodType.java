@@ -1,5 +1,7 @@
 package br.com.brigadadoslobos.gerenciador.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,6 +15,7 @@ public class BloodType implements Serializable {
     private Integer id;
     @Column(unique = true)
     private String description;
+    @JsonIgnore
     @OneToMany(mappedBy = "bloodType")
     private List<Member> members = new ArrayList<>();
 

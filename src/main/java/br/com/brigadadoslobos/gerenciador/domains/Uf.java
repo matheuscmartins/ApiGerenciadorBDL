@@ -1,5 +1,7 @@
 package br.com.brigadadoslobos.gerenciador.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,9 +18,11 @@ public class Uf implements Serializable {
     private String name;
     @Column(unique = true)
     private String acronym;
+
     @ManyToOne
     @JoinColumn(name = "country_id")
     private Country country;
+    @JsonIgnore
     @OneToMany(mappedBy = "uf")
     private List<City> citys = new ArrayList<>();
 

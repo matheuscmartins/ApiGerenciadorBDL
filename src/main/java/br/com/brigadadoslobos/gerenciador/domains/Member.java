@@ -243,15 +243,6 @@ public class Member implements Serializable {
     public Set<Profile> getProfiles() {
         return profile.stream().map(x -> Profile.toEnum(x)).collect(Collectors.toSet());
     }
-
-    public List<MemberPatch> getMemberPatchList() {
-        return memberPatchList;
-    }
-
-    public void setMemberPatchList(List<MemberPatch> memberPatchList) {
-        this.memberPatchList = memberPatchList;
-    }
-
     public Address getAddress() {
         return address;
     }
@@ -276,6 +267,5 @@ public class Member implements Serializable {
     public int hashCode() {
         return Objects.hash(id, cpf);
     }
-
 
 }
