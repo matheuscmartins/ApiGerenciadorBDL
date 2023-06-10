@@ -1,5 +1,6 @@
 package br.com.brigadadoslobos.gerenciador.domains;
 
+import br.com.brigadadoslobos.gerenciador.domains.dtos.MemberDTO;
 import br.com.brigadadoslobos.gerenciador.domains.enums.Profile;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -86,8 +87,31 @@ public class Member implements Serializable {
         this.headQuarter = headQuarter;
         this.address = address;
         this.bloodType = bloodType;
+        addProfile(Profile.USUARIO);
     }
-
+    public Member(MemberDTO obj) {
+        this.id = obj.getId();
+        this.firsName = obj.getFirsName();
+        this.lastName = obj.getLastName();
+        this.nickName = obj.getNickName();
+        this.rg = obj.getRg();
+        this.cpf = obj.getCpf();
+        this.cnh = obj.getCnh();
+        this.celPhone = obj.getCelPhone();
+        this.phone = obj.getPhone();
+        this.familiarPhone1 = obj.getFamiliarPhone1();
+        this.familiarPhone2 = obj.getFamiliarPhone2();
+        this.email = obj.getEmail();
+        this.password = obj.getPassword();
+        this.birthDate = obj.getBirthDate();
+        this.admissionDate = obj.getAdmissionDate();
+        this.shutdowDate = obj.getShutdowDate();
+        this.memberPatchList = obj.getMemberPatchList();
+        this.profile = obj.getProfile().stream().map(x -> x.getId()).collect(Collectors.toSet()); ;
+        this.headQuarter = obj.getHeadQuarter();
+        this.address = obj.getAddress();
+        this.bloodType = obj.getBloodType();
+    }
     public List<MemberPatch> getMemberPatch() {
         return memberPatchList;
     }

@@ -1,6 +1,7 @@
 package br.com.brigadadoslobos.gerenciador.services;
 
 import br.com.brigadadoslobos.gerenciador.domains.Member;
+import br.com.brigadadoslobos.gerenciador.domains.dtos.MemberDTO;
 import br.com.brigadadoslobos.gerenciador.repositories.MemberRepository;
 import br.com.brigadadoslobos.gerenciador.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,11 @@ public class MemberService {
 
     public List<Member> findAll() {
         return repository.findAll();
+    }
+
+    public Member create(MemberDTO objDTO) {
+        objDTO.setId(null);
+        Member newObj = new Member(objDTO);
+        return repository.save(newObj);
     }
 }

@@ -42,6 +42,7 @@ public class MemberDTO implements Serializable {
 
     public MemberDTO(){
         super();
+        addProfile(Profile.USUARIO);
     }
 
     public MemberDTO(Member obj) {
@@ -66,6 +67,7 @@ public class MemberDTO implements Serializable {
         this.headQuarter = obj.getHeadQuarter();
         this.address = obj.getAddress();
         this.bloodType = obj.getBloodType();
+        addProfile(Profile.USUARIO);
     }
 
     public Integer getId() {
@@ -235,4 +237,5 @@ public class MemberDTO implements Serializable {
     public void setBloodType(BloodType bloodType) {
         this.bloodType = bloodType;
     }
+
 }
