@@ -5,6 +5,7 @@ import br.com.brigadadoslobos.gerenciador.domains.dtos.MemberDTO;
 import br.com.brigadadoslobos.gerenciador.repositories.MemberRepository;
 import br.com.brigadadoslobos.gerenciador.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,7 +28,18 @@ public class MemberService {
 
     public Member create(MemberDTO objDTO) {
         objDTO.setId(null);
+        validaPorCpfEmail(objDTO);
         Member newObj = new Member(objDTO);
         return repository.save(newObj);
+    }
+    private void validaPorCpfEmail(MemberDTO objDTO){
+        Optional<Member> obj = repository.findByCpf(objDTO.getCpf());
+        if (obj.isPresent() && obj.get().getId() != objDTO.getId()){
+            throw new DataIntegrityViolationException("CPF já cadastrado no sistema!");
+        }
+        obj = repository.findByEmail(objDTO.getEmail());
+        if (obj.isPresent() && obj.get().getId() != objDTO.getId()){
+            throw new DataIntegrityViolationException("E-mail já cadastrado no sistema!");
+        }
     }
 }
