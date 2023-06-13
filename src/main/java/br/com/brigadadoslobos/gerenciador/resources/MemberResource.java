@@ -35,4 +35,9 @@ public class MemberResource {
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(newObj.getId()).toUri()).build();
     }
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<MemberDTO> update(@PathVariable Integer id, @Valid @RequestBody MemberDTO objDTO){
+        Member obj = service.update(id, objDTO);
+        return ResponseEntity.ok().body(new MemberDTO(obj));
+    }
 }

@@ -31,6 +31,13 @@ public class MemberService {
         Member newObj = new Member(objDTO);
         return repository.save(newObj);
     }
+    public Member update(Integer id, MemberDTO objDTO) {
+        objDTO.setId(id);
+        Member oldObj = findById(id);
+        validaPorCpfEmail(objDTO);
+        oldObj = new Member(objDTO);
+        return repository.save(oldObj);
+    }
     private void validaPorCpfEmail(MemberDTO objDTO){
         Optional<Member> obj = repository.findByCpf(objDTO.getCpf());
         if (obj.isPresent() && obj.get().getId() != objDTO.getId()){
@@ -41,4 +48,6 @@ public class MemberService {
             throw new DataIntegrityViolationException("E-mail já cadastrado no sistema!");
         }
     }
+
+
 }

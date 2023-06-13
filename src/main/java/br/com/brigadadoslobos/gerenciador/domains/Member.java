@@ -3,6 +3,7 @@ package br.com.brigadadoslobos.gerenciador.domains;
 import br.com.brigadadoslobos.gerenciador.domains.dtos.MemberDTO;
 import br.com.brigadadoslobos.gerenciador.domains.enums.Profile;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,6 +25,7 @@ public class Member implements Serializable {
     private String nickName;
     @Column(length = 20)
     private String rg;
+    @CPF
     @Column(unique = true)
     private String cpf;
     @Column(length = 50)
