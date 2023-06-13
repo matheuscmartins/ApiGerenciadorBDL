@@ -1,37 +1,31 @@
-package br.com.brigadadoslobos.gerenciador.domains;
+package br.com.brigadadoslobos.gerenciador.domains.dtos;
 
-import br.com.brigadadoslobos.gerenciador.domains.dtos.PatchDTO;
+import br.com.brigadadoslobos.gerenciador.domains.MemberPatch;
+import br.com.brigadadoslobos.gerenciador.domains.Patch;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-public class Patch implements Serializable {
-
+public class PatchDTO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(unique = true)
+    @NotNull(message = "O campo Nome é requerido")
     private String name;
     @JsonBackReference
-    @OneToMany(mappedBy = "patch")
     private List<MemberPatch> memberPatchList = new ArrayList<>();
 
-    public Patch() {
+    public PatchDTO(){
+        super();
     }
 
-    public Patch(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-    public Patch(PatchDTO obj) {
+    public PatchDTO(Patch obj) {
         this.id = obj.getId();
         this.name = obj.getName();
     }
+
     public Integer getId() {
         return id;
     }
@@ -47,6 +41,7 @@ public class Patch implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
     public List<MemberPatch> getMemberPatchList() {
         return memberPatchList;
     }

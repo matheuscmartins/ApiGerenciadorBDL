@@ -38,6 +38,13 @@ public class MemberService {
         oldObj = new Member(objDTO);
         return repository.save(oldObj);
     }
+     /*
+    public void delete(Integer id) {
+        Member obj = findById(id);
+       //throw new DataIntegrityViolationException("Não pode ser excluido");
+       repository.deleteById(id);
+    }
+      */
     private void validaPorCpfEmail(MemberDTO objDTO){
         Optional<Member> obj = repository.findByCpf(objDTO.getCpf());
         if (obj.isPresent() && obj.get().getId() != objDTO.getId()){
@@ -48,6 +55,7 @@ public class MemberService {
             throw new DataIntegrityViolationException("E-mail já cadastrado no sistema!");
         }
     }
+
 
 
 }

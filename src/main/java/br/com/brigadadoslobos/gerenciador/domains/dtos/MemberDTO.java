@@ -52,7 +52,6 @@ public class MemberDTO implements Serializable {
 
     public MemberDTO(Member obj) {
         this.id = obj.getId();
-
         this.firsName = obj.getFirsName();
         this.lastName = obj.getLastName();
         this.nickName = obj.getNickName();

@@ -40,4 +40,9 @@ public class MemberResource {
         Member obj = service.update(id, objDTO);
         return ResponseEntity.ok().body(new MemberDTO(obj));
     }
+   /* @DeleteMapping(value = "/{id}")
+    public ResponseEntity<MemberDTO> delete(@PathVariable Integer id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }*/
 }
