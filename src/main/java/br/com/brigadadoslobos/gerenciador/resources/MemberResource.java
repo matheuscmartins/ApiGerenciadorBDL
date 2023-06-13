@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +30,7 @@ public class MemberResource {
         return ResponseEntity.ok().body(listDTO);
     }
     @PostMapping
-    public ResponseEntity<MemberDTO> create(@RequestBody MemberDTO objDTO){
+    public ResponseEntity<MemberDTO> create(@Valid @RequestBody MemberDTO objDTO){
         Member newObj = service.create(objDTO);
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(newObj.getId()).toUri()).build();

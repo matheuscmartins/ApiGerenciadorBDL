@@ -4,6 +4,7 @@ import br.com.brigadadoslobos.gerenciador.domains.*;
 import br.com.brigadadoslobos.gerenciador.domains.enums.Profile;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,17 +17,21 @@ public class MemberDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
+    @NotNull(message = "O campo NOME é requerido")
     private String firsName;
     private String lastName;
     private String nickName;
     private String rg;
+    @NotNull(message = "O campo CPF é requerido")
     private String cpf;
     private String cnh;
     private String celPhone;
     private String phone;
     private String familiarPhone1;
     private String familiarPhone2;
+    @NotNull(message = "O campo E-mail é requerido")
     private String email;
+    @NotNull(message = "O campo Senha é requerido")
     private String password;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate birthDate;
@@ -47,6 +52,7 @@ public class MemberDTO implements Serializable {
 
     public MemberDTO(Member obj) {
         this.id = obj.getId();
+
         this.firsName = obj.getFirsName();
         this.lastName = obj.getLastName();
         this.nickName = obj.getNickName();
