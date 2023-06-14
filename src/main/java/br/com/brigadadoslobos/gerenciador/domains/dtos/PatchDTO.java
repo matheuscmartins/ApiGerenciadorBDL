@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PatchDTO implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -24,6 +25,8 @@ public class PatchDTO implements Serializable {
     public PatchDTO(Patch obj) {
         this.id = obj.getId();
         this.name = obj.getName();
+        this.memberPatchList = obj.getMemberPatchList().stream().map( x -> x
+        ).collect(Collectors.toList());
     }
 
     public Integer getId() {

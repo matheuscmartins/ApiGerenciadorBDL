@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class Patch implements Serializable {
@@ -31,6 +32,8 @@ public class Patch implements Serializable {
     public Patch(PatchDTO obj) {
         this.id = obj.getId();
         this.name = obj.getName();
+        this.memberPatchList = obj.getMemberPatchList().stream().map( x -> x
+        ).collect(Collectors.toList());
     }
     public Integer getId() {
         return id;
