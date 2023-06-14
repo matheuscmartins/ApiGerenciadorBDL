@@ -1,43 +1,28 @@
-package br.com.brigadadoslobos.gerenciador.domains;
+package br.com.brigadadoslobos.gerenciador.domains.dtos;
 
-import br.com.brigadadoslobos.gerenciador.domains.dtos.UfDTO;
+import br.com.brigadadoslobos.gerenciador.domains.City;
+import br.com.brigadadoslobos.gerenciador.domains.Country;
+import br.com.brigadadoslobos.gerenciador.domains.Uf;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Entity
-public class Uf implements Serializable {
-
+public class UfDTO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(length = 100)
     private String name;
-    @Column(unique = true)
     private String acronym;
-
-    @ManyToOne
-    @JoinColumn(name = "country_id")
     private Country country;
     @JsonIgnore
-    @OneToMany(mappedBy = "uf")
     private List<City> citys = new ArrayList<>();
 
-    public Uf() {
+    public UfDTO(){
+        super();
     }
-
-    public Uf(Integer id, String name, String acronym, Country country) {
-        this.id = id;
-        this.name= name;
-        this.acronym = acronym;
-        this.country = country;
-    }
-    public Uf(UfDTO obj) {
+    public UfDTO(Uf obj) {
         this.id = obj.getId();
         this.name= obj.getName();
         this.acronym = obj.getAcronym();
@@ -45,6 +30,7 @@ public class Uf implements Serializable {
         this.citys = obj.getCitys().stream().map( x -> x
         ).collect(Collectors.toList());
     }
+
     public Integer getId() {
         return id;
     }
