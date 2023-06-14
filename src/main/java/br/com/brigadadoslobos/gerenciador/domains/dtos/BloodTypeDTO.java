@@ -1,39 +1,31 @@
-package br.com.brigadadoslobos.gerenciador.domains;
+package br.com.brigadadoslobos.gerenciador.domains.dtos;
 
-import br.com.brigadadoslobos.gerenciador.domains.dtos.BloodTypeDTO;
+import br.com.brigadadoslobos.gerenciador.domains.BloodType;
+import br.com.brigadadoslobos.gerenciador.domains.Member;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Entity
-public class BloodType implements Serializable {
+public class BloodTypeDTO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(unique = true)
     private String description;
     @JsonIgnore
-    @OneToMany(mappedBy = "bloodType")
     private List<Member> members = new ArrayList<>();
 
-    public BloodType() {
+    public BloodTypeDTO(){
+        super();
     }
-
-    public BloodType(Integer id, String description) {
-        this.id = id;
-        this.description = description;
-    }
-    public BloodType(BloodTypeDTO obj) {
+    public BloodTypeDTO(BloodType obj) {
         this.id = obj.getId();
         this.description = obj.getDescription();
         this.members = obj.getMembers().stream().map( x -> x
         ).collect(Collectors.toList());
     }
+
     public Integer getId() {
         return id;
     }
