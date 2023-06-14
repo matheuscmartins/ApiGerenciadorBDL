@@ -1,16 +1,14 @@
-package br.com.brigadadoslobos.gerenciador.domains;
+package br.com.brigadadoslobos.gerenciador.domains.dtos;
 
-import br.com.brigadadoslobos.gerenciador.domains.dtos.AddressDTO;
+import br.com.brigadadoslobos.gerenciador.domains.Address;
+import br.com.brigadadoslobos.gerenciador.domains.City;
 
-import javax.persistence.*;
+import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
-@Entity
-public class Address implements Serializable {
+public class AddressDTO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(nullable = false, length = 100)
     @NotEmpty(message = "O campo logradouro (rua, av. ou travessa) é obrigatorio")
@@ -21,22 +19,12 @@ public class Address implements Serializable {
     private String adressComplement;
     @Column( length = 10)
     private String postCode;
-    @ManyToOne
-    @JoinColumn(name = "city_id")
     private City city;
 
-    public Address() {
+    public AddressDTO(){
+        super();
     }
-
-    public Address(Integer id, String logradouro, String number, String adressComplement, String postCode, City city) {
-        this.id = id;
-        this.logradouro = logradouro;
-        this.number = number;
-        this.adressComplement = adressComplement;
-        this.postCode = postCode;
-        this.city = city;
-    }
-    public Address(AddressDTO obj) {
+    public AddressDTO(Address obj) {
         this.id = obj.getId();
         this.logradouro = obj.getLogradouro();
         this.number = obj.getNumber();
@@ -44,6 +32,7 @@ public class Address implements Serializable {
         this.postCode = obj.getPostCode();
         this.city = obj.getCity();
     }
+
     public Integer getId() {
         return id;
     }
