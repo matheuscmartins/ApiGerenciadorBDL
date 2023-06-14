@@ -1,34 +1,25 @@
-package br.com.brigadadoslobos.gerenciador.domains;
+package br.com.brigadadoslobos.gerenciador.domains.dtos;
 
-import br.com.brigadadoslobos.gerenciador.domains.dtos.CountryDTO;
+import br.com.brigadadoslobos.gerenciador.domains.Country;
+import br.com.brigadadoslobos.gerenciador.domains.Uf;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Entity
-public class Country implements Serializable {
+public class CountryDTO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(nullable = false, length = 100, unique = true)
     private String name;
     @JsonBackReference
-    @OneToMany(mappedBy = "country")
     private List<Uf> ufs = new ArrayList<>();
 
-    public Country() {
+    public CountryDTO(){
+        super();
     }
-
-    public Country(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-    public Country(CountryDTO obj) {
+    public CountryDTO(Country obj) {
         this.id = obj.getId();
         this.name = obj.getName();
         this.ufs = obj.getUfs().stream().map( x -> x
