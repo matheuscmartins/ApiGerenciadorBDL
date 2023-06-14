@@ -1,40 +1,32 @@
-package br.com.brigadadoslobos.gerenciador.domains;
+package br.com.brigadadoslobos.gerenciador.domains.dtos;
 
-import br.com.brigadadoslobos.gerenciador.domains.dtos.CityDTO;
+import br.com.brigadadoslobos.gerenciador.domains.Address;
+import br.com.brigadadoslobos.gerenciador.domains.City;
+import br.com.brigadadoslobos.gerenciador.domains.Uf;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Entity
-public class City implements Serializable {
+public class CityDTO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id;
-    @Column(nullable = false, length = 100)
-    @NotEmpty(message = "O campo nome da cidade é obrigatorio")
+    @NotNull(message = "O campo Nome é requerido")
     private String name;
-    @ManyToOne
-    @JoinColumn(name = "uf_id")
+    @NotNull(message = "O campo Estado é requerido")
     private Uf uf;
     @JsonIgnore
-    @OneToMany(mappedBy = "city")
     private List<Address> addresses = new ArrayList<>();
 
-    public City() {
+    public CityDTO(){
+        super();
     }
 
-    public City(Integer id, String name, Uf uf) {
-        this.id = id;
-        this.name = name;
-        this.uf = uf;
-    }
-    public City(CityDTO obj) {
+    public CityDTO(City obj) {
         this.id = obj.getId();
         this.name = obj.getName();
         this.uf = obj.getUf();
