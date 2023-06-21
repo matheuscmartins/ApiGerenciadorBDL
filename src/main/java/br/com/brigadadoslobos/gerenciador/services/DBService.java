@@ -29,6 +29,8 @@ public class DBService {
     private AddressRepository addressRepository;
     @Autowired
     private HeadQuarterRepository headQuarterRepository;
+    @Autowired
+    private InfractionRepository infractionRepository;
     public void instanciaDB(){
         BloodType bloodType1 = new BloodType(null, "A+");
         BloodType bloodType2 = new BloodType(null, "O-");
@@ -79,5 +81,17 @@ public class DBService {
         MemberPatch memberPatch3 = new MemberPatch(null, "Aniversario", LocalDate.now(), member1, patch2);
         MemberPatch memberPatch4 = new MemberPatch(null, "Aniversario", LocalDate.now(), member2, patch1);
         memberPatchRepository.saveAll(Arrays.asList(memberPatch1, memberPatch2, memberPatch3, memberPatch4));
+        Infraction infraction1 = new Infraction(null,"Advertencia Escrita",
+                "Texto da trangressão.",LocalDate.parse("2015-08-11"),member1);
+        Infraction infraction2 = new Infraction(null,"Advertencia Verbal","Texto da trangressão222.",
+                LocalDate.parse("2010-08-11"), member1);
+        Infraction infraction3 = new Infraction(null,"Suspensão do Colete","Texto da trangressão333.",
+                LocalDate.parse("2013-10-01"), member1);
+        Infraction infraction4 = new Infraction(null,"Advertencia Verbal","Texto da trangressão333.",
+                LocalDate.parse("2022-08-18"), member2);
+        Infraction infraction5 = new Infraction(null,"Advertencia Verbal","Texto da trangressão333.",
+                LocalDate.parse("2020-01-05"), member2);
+        infractionRepository.saveAll(Arrays.asList(infraction1, infraction2, infraction3, infraction4, infraction5));
+
     }
 }
