@@ -1,50 +1,37 @@
-package br.com.brigadadoslobos.gerenciador.domains;
+package br.com.brigadadoslobos.gerenciador.domains.dtos;
 
-import br.com.brigadadoslobos.gerenciador.domains.dtos.MemberPatchDTO;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import br.com.brigadadoslobos.gerenciador.domains.Member;
+import br.com.brigadadoslobos.gerenciador.domains.MemberPatch;
+import br.com.brigadadoslobos.gerenciador.domains.Patch;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-@Entity
-public class MemberPatch implements Serializable {
-
+public class MemberPatchDTO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String description;
-    @Column(nullable = false)
+
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate admissionDate;
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JsonIgnore
     private Member member;
-
-    @ManyToOne
-    @JoinColumn(name = "patch_id")
     private Patch patch;
 
-    public MemberPatch() {
+    public MemberPatchDTO(){
+        super();
     }
 
-    public MemberPatch(Integer id, String description, LocalDate admissionDate, Member member, Patch patch) {
-        this.id = id;
-        this.description = description;
-        this.admissionDate = admissionDate;
-        this.member = member;
-        this.patch = patch;
-    }
-    public MemberPatch(MemberPatchDTO obj) {
+    public MemberPatchDTO(MemberPatch obj) {
         this.id = obj.getId();
         this.description = obj.getDescription();
         this.admissionDate = obj.getAdmissionDate();
         this.member = obj.getMember();
         this.patch = obj.getPatch();
     }
+
     public Integer getId() {
         return id;
     }
@@ -69,11 +56,12 @@ public class MemberPatch implements Serializable {
         this.admissionDate = admissionDate;
     }
 
-    public br.com.brigadadoslobos.gerenciador.domains.Member getMember() {
+    public Member getMember() {
         return member;
     }
 
-    public void setMember(br.com.brigadadoslobos.gerenciador.domains.Member member) {
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     public Patch getPatch() {
