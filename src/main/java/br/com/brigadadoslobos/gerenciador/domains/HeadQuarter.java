@@ -1,5 +1,7 @@
 package br.com.brigadadoslobos.gerenciador.domains;
 
+import br.com.brigadadoslobos.gerenciador.domains.dtos.HeadQuarterDTO;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -32,7 +34,11 @@ public class HeadQuarter implements Serializable {
         this.description = description;
         this.address = address;
     }
-
+    public HeadQuarter(HeadQuarterDTO obj) {
+        this.id = obj.getId();
+        this.description = obj.getDescription();
+        this.address = obj.getAddress();
+    }
     public Integer getId() {
         return id;
     }
