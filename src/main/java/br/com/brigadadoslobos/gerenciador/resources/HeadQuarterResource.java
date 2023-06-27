@@ -24,7 +24,7 @@ public class HeadQuarterResource {
         return ResponseEntity.ok().body(new HeadQuarterDTO(obj));
     }
     @GetMapping
-    public ResponseEntity<List<HeadQuarterDTO>> findAl(){
+    public ResponseEntity<List<HeadQuarterDTO>> findAll(){
         List<HeadQuarter> list = service.findAll();
         List<HeadQuarterDTO> listDTO = list.stream().map(obj -> new HeadQuarterDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);

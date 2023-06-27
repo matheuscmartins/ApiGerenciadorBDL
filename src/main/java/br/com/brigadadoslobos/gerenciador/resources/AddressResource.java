@@ -24,7 +24,7 @@ public class AddressResource {
         return ResponseEntity.ok().body(new AddressDTO(obj));
     }
     @GetMapping
-    public ResponseEntity<List<AddressDTO>> findAl(){
+    public ResponseEntity<List<AddressDTO>> findAll(){
         List<Address> list = service.findAll();
         List<AddressDTO> listDTO = list.stream().map(obj -> new AddressDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);

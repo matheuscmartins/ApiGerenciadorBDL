@@ -24,7 +24,7 @@ public class CityResource {
         return ResponseEntity.ok().body(new CityDTO(obj));
     }
     @GetMapping
-    public ResponseEntity<List<CityDTO>> findAl(){
+    public ResponseEntity<List<CityDTO>> findAll(){
         List<City> list = service.findAll();
         List<CityDTO> listDTO = list.stream().map(obj -> new CityDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);

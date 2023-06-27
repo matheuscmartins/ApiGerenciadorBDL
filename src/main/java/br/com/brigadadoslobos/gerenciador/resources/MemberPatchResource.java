@@ -24,7 +24,7 @@ public class MemberPatchResource {
         return ResponseEntity.ok().body(new MemberPatchDTO(obj));
     }
     @GetMapping
-    public ResponseEntity<List<MemberPatchDTO>> findAl(){
+    public ResponseEntity<List<MemberPatchDTO>> findAll(){
         List<MemberPatch> list = service.findAll();
         List<MemberPatchDTO> listDTO = list.stream().map(obj -> new MemberPatchDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);

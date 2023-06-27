@@ -24,7 +24,7 @@ public class InfractionResource {
         return ResponseEntity.ok().body(new InfractionDTO(obj));
     }
     @GetMapping
-    public ResponseEntity<List<InfractionDTO>> findAl(){
+    public ResponseEntity<List<InfractionDTO>> findAll(){
         List<Infraction> list = service.findAll();
         List<InfractionDTO> listDTO = list.stream().map(obj -> new InfractionDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);

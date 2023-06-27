@@ -24,7 +24,7 @@ public class PatchResource {
         return ResponseEntity.ok().body(new PatchDTO(obj));
     }
     @GetMapping
-    public ResponseEntity<List<PatchDTO>> findAl(){
+    public ResponseEntity<List<PatchDTO>> findAll(){
         List<Patch> list = service.findAll();
         List<PatchDTO> listDTO = list.stream().map(obj -> new PatchDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);

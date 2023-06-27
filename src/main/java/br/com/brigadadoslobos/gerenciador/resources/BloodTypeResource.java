@@ -24,7 +24,7 @@ public class BloodTypeResource {
         return ResponseEntity.ok().body(new BloodTypeDTO(obj));
     }
     @GetMapping
-    public ResponseEntity<List<BloodTypeDTO>> findAl(){
+    public ResponseEntity<List<BloodTypeDTO>> findAll(){
         List<BloodType> list = service.findAll();
         List<BloodTypeDTO> listDTO = list.stream().map(obj -> new BloodTypeDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);

@@ -24,7 +24,7 @@ public class UfResource {
         return ResponseEntity.ok().body(new UfDTO(obj));
     }
     @GetMapping
-    public ResponseEntity<List<UfDTO>> findAl(){
+    public ResponseEntity<List<UfDTO>> findAll(){
         List<Uf> list = service.findAll();
         List<UfDTO> listDTO = list.stream().map(obj -> new UfDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);

@@ -25,7 +25,7 @@ public class CountryResource {
         return ResponseEntity.ok().body(new CountryDTO(obj));
     }
     @GetMapping
-    public ResponseEntity<List<CountryDTO>> findAl(){
+    public ResponseEntity<List<CountryDTO>> findAll(){
         List<Country> list = service.findAll();
         List<CountryDTO> listDTO = list.stream().map(obj -> new CountryDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
