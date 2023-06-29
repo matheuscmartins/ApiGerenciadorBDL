@@ -85,7 +85,6 @@ public class Member implements Serializable {
         this.birthDate = birthDate;
         this.admissionDate = admissionDate;
         this.shutdowDate = shutdowDate;
-        addProfile(Profile.USUARIO);
         this.headQuarter = headQuarter;
         this.address = address;
         this.bloodType = bloodType;

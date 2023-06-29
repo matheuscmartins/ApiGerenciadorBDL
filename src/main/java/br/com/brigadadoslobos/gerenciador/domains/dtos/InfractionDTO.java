@@ -2,31 +2,34 @@ package br.com.brigadadoslobos.gerenciador.domains.dtos;
 
 import br.com.brigadadoslobos.gerenciador.domains.Infraction;
 import br.com.brigadadoslobos.gerenciador.domains.Member;
+import br.com.brigadadoslobos.gerenciador.domains.enums.InfractionType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.time.LocalDate;
 
 public class InfractionDTO implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer id;
-    private String type;
     private String description;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate infractionDate;
     @JsonIgnore
     private Member member;
+    @Column(nullable = false)
+    private InfractionType infractionType;
 
     public InfractionDTO() {
     }
 
     public InfractionDTO(Infraction obj) {
         this.id = obj.getId();
-        this.type = obj.getType();
         this.description = obj.getDescription();
         this.infractionDate = obj.getInfractionDate();
         this.member = obj.getMember();
+        this.infractionType = obj.getInfractionType();
     }
 
     public Integer getId() {
@@ -37,13 +40,6 @@ public class InfractionDTO implements Serializable {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public String getDescription() {
         return description;
@@ -67,5 +63,13 @@ public class InfractionDTO implements Serializable {
 
     public void setMember(Member member) {
         this.member = member;
+    }
+
+    public InfractionType getInfractionType() {
+        return infractionType;
+    }
+
+    public void setInfractionType(InfractionType infractionType) {
+        this.infractionType = infractionType;
     }
 }

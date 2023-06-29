@@ -1,6 +1,7 @@
 package br.com.brigadadoslobos.gerenciador.services;
 
 import br.com.brigadadoslobos.gerenciador.domains.*;
+import br.com.brigadadoslobos.gerenciador.domains.enums.InfractionType;
 import br.com.brigadadoslobos.gerenciador.domains.enums.Profile;
 import br.com.brigadadoslobos.gerenciador.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,16 +85,17 @@ public class DBService {
         MemberPatch memberPatch3 = new MemberPatch(null, "Aniversario", LocalDate.now(), member1, patch2);
         MemberPatch memberPatch4 = new MemberPatch(null, "Aniversario", LocalDate.now(), member2, patch1);
         memberPatchRepository.saveAll(Arrays.asList(memberPatch1, memberPatch2, memberPatch3, memberPatch4));
-        Infraction infraction1 = new Infraction(null, "Advertencia Escrita",
-                "Texto da trangressão.", LocalDate.parse("2015-08-11"), member1);
-        Infraction infraction2 = new Infraction(null, "Advertencia Verbal", "Texto da trangressão222.",
-                LocalDate.parse("2010-08-11"), member1);
-        Infraction infraction3 = new Infraction(null, "Suspensão do Colete", "Texto da trangressão333.",
-                LocalDate.parse("2013-10-01"), member1);
-        Infraction infraction4 = new Infraction(null, "Advertencia Verbal", "Texto da trangressão333.",
-                LocalDate.parse("2022-08-18"), member2);
-        Infraction infraction5 = new Infraction(null, "Advertencia Verbal", "Texto da trangressão333.",
-                LocalDate.parse("2020-01-05"), member2);
+
+        Infraction infraction1 = new Infraction(null,
+                "Texto da trangressão.", LocalDate.parse("2015-08-11"), member1, InfractionType.ESCRITA);
+        Infraction infraction2 = new Infraction(null,  "Texto da trangressão222.",
+                LocalDate.parse("2010-08-11"), member1, InfractionType.VERBAL);
+        Infraction infraction3 = new Infraction(null, "Texto da trangressão333.",
+                LocalDate.parse("2013-10-01"), member1, InfractionType.SUSPENSAO);
+        Infraction infraction4 = new Infraction(null, "Texto da trangressão333.",
+                LocalDate.parse("2022-08-18"), member2, InfractionType.ESCRITA);
+        Infraction infraction5 = new Infraction(null, "Texto da trangressão333.",
+                LocalDate.parse("2020-01-05"), member2, InfractionType.ESCRITA);
         infractionRepository.saveAll(Arrays.asList(infraction1, infraction2, infraction3, infraction4, infraction5));
         Feed feed1 = new Feed(null, LocalDate.now(), LocalDate.parse("2010-08-11"), "Title 1",
                 "Introdução\n" +

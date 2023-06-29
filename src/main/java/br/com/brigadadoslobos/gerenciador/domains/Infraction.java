@@ -1,6 +1,7 @@
 package br.com.brigadadoslobos.gerenciador.domains;
 
 import br.com.brigadadoslobos.gerenciador.domains.dtos.InfractionDTO;
+import br.com.brigadadoslobos.gerenciador.domains.enums.InfractionType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -14,7 +15,6 @@ public class Infraction implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String type;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate infractionDate;
     private String description;
@@ -22,24 +22,27 @@ public class Infraction implements Serializable {
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
+    @Column(nullable = false)
+    private InfractionType infractionType;
 
     public Infraction() {
     }
 
-    public Infraction(Integer id, String type, String description, LocalDate infractionDate, Member member) {
+    public Infraction(Integer id, String description, LocalDate infractionDate, Member member,
+                      InfractionType infractionType) {
         this.id = id;
-        this.type = type;
         this.description = description;
         this.infractionDate = infractionDate;
         this.member = member;
+        this.infractionType = InfractionType.valueOf(infractionType.getId());
     }
 
     public Infraction(InfractionDTO obj) {
         this.id = obj.getId();
-        this.type = obj.getType();
         this.description = obj.getDescription();
         this.infractionDate = obj.getInfractionDate();
         this.member = obj.getMember();
+        this.infractionType = obj.getInfractionType();
     }
 
     public Integer getId() {
@@ -48,14 +51,6 @@ public class Infraction implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getDescription() {
@@ -80,5 +75,13 @@ public class Infraction implements Serializable {
 
     public void setMember(Member member) {
         this.member = member;
+    }
+
+    public InfractionType getInfractionType() {
+        return infractionType;
+    }
+
+    public void addInfractionType(InfractionType infractionType) {
+        this.infractionType = InfractionType.valueOf(infractionType.getId());
     }
 }
