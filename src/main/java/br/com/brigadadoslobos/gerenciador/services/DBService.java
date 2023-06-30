@@ -5,6 +5,7 @@ import br.com.brigadadoslobos.gerenciador.domains.enums.InfractionType;
 import br.com.brigadadoslobos.gerenciador.domains.enums.Profile;
 import br.com.brigadadoslobos.gerenciador.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -24,6 +25,8 @@ public class DBService {
     private PatchRepository patchRepository;
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private BCryptPasswordEncoder encoder;
     @Autowired
     private MemberPatchRepository memberPatchRepository;
     @Autowired
@@ -69,13 +72,13 @@ public class DBService {
         headQuarterRepository.saveAll(Arrays.asList(headQuarter1, headQuarter2, headQuarter3));
         Member member1 = new Member(null, "Primeiro Nome", "Sobre Nome", "Apelido",
                 "00111111-8", "866.865.710-08", "090929302938-AB", "189999-9999", null,
-                null, null, "member1@hotmail.com", "senha",
+                null, null, "member1@hotmail.com", encoder.encode("senha"),
                 LocalDate.parse("2000-11-10"), LocalDate.now(), null, headQuarter1, address1,
                 bloodType1);
         member1.addProfile(Profile.ADMIN);
         Member member2 = new Member(null, "Primeiro Nome2", "Sobre Nome2", "Apelido2",
                 "00111111-8", "518.218.740-80", "090929302938-AB", "189999-9999", null,
-                null, null, "member2@hotmail.com", "senha",
+                null, null, "member2@hotmail.com", encoder.encode("senha"),
                 LocalDate.parse("1994-05-01"), LocalDate.parse("2015-08-11"), null, headQuarter2,
                 address3, bloodType2);
         member2.addProfile(Profile.USUARIO);
