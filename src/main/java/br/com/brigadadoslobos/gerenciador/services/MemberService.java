@@ -38,6 +38,10 @@ public class MemberService {
     public Member update(Integer id, MemberDTO objDTO) {
         objDTO.setId(id);
         Member oldObj = findById(id);
+
+        if (!objDTO.getPassword().equals(oldObj.getPassword()))
+            objDTO.setPassword(encoder.encode(objDTO.getPassword()));
+
         validaPorCpfEmail(objDTO);
         oldObj = new Member(objDTO);
         return repository.save(oldObj);

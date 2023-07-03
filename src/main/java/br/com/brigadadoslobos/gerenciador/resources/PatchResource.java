@@ -5,6 +5,7 @@ import br.com.brigadadoslobos.gerenciador.domains.dtos.PatchDTO;
 import br.com.brigadadoslobos.gerenciador.services.PatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -23,18 +24,21 @@ public class PatchResource {
         Patch obj = service.findById(id);
         return ResponseEntity.ok().body(new PatchDTO(obj));
     }
+
     @GetMapping
     public ResponseEntity<List<PatchDTO>> findAll(){
         List<Patch> list = service.findAll();
         List<PatchDTO> listDTO = list.stream().map(obj -> new PatchDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
     }
+    @PreAuthorize("hasAnyRole('ADMIN', 'COMANDO')")
     @PostMapping
     public ResponseEntity<PatchDTO> create(@Valid @RequestBody PatchDTO objDTO){
         Patch newObj = service.create(objDTO);
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(newObj.getId()).toUri()).build();
     }
+    @PreAuthorize("hasAnyRole('ADMIN', 'COMANDO')")
     @PutMapping(value = "/{id}")
     public ResponseEntity<PatchDTO> update(@PathVariable Integer id, @Valid @RequestBody PatchDTO objDTO){
         Patch obj = service.update(id, objDTO);

@@ -5,6 +5,7 @@ import br.com.brigadadoslobos.gerenciador.domains.dtos.MemberDTO;
 import br.com.brigadadoslobos.gerenciador.services.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -29,12 +30,14 @@ public class MemberResource {
         List<MemberDTO> listDTO = list.stream().map(obj -> new MemberDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
     }
+    @PreAuthorize("hasAnyRole('ADMIN', 'COMANDO', 'DIRETOR')")
     @PostMapping
     public ResponseEntity<MemberDTO> create(@Valid @RequestBody MemberDTO objDTO){
         Member newObj = service.create(objDTO);
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(newObj.getId()).toUri()).build();
     }
+    @PreAuthorize("hasAnyRole('ADMIN', 'COMANDO', 'DIRETOR')")
     @PutMapping(value = "/{id}")
     public ResponseEntity<MemberDTO> update(@PathVariable Integer id, @Valid @RequestBody MemberDTO objDTO){
         Member obj = service.update(id, objDTO);

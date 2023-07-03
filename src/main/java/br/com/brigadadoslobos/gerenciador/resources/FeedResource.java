@@ -5,6 +5,7 @@ import br.com.brigadadoslobos.gerenciador.domains.dtos.FeedDTO;
 import br.com.brigadadoslobos.gerenciador.services.FeedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -29,17 +30,20 @@ public class FeedResource {
         List<FeedDTO> listDTO = list.stream().map(obj -> new FeedDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
     }
+    @PreAuthorize("hasAnyRole('ADMIN', 'COMANDO', 'DIRETOR', 'EDITOR')")
     @PostMapping
     public ResponseEntity<FeedDTO> create(@Valid @RequestBody FeedDTO objDTO){
         Feed newObj = service.create(objDTO);
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(newObj.getId()).toUri()).build();
     }
+    @PreAuthorize("hasAnyRole('ADMIN', 'COMANDO', 'DIRETOR', 'EDITOR')")
     @PutMapping(value = "/{id}")
     public ResponseEntity<FeedDTO> update(@PathVariable Integer id, @Valid @RequestBody FeedDTO objDTO){
         Feed obj = service.update(id, objDTO);
         return ResponseEntity.ok().body(new FeedDTO(obj));
     }
+    @PreAuthorize("hasAnyRole('ADMIN', 'COMANDO', 'DIRETOR', 'EDITOR')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<FeedDTO> delete(@PathVariable Integer id){
         service.delete(id);

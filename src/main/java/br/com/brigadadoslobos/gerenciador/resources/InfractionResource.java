@@ -5,6 +5,7 @@ import br.com.brigadadoslobos.gerenciador.domains.dtos.InfractionDTO;
 import br.com.brigadadoslobos.gerenciador.services.InfractionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -29,17 +30,20 @@ public class InfractionResource {
         List<InfractionDTO> listDTO = list.stream().map(obj -> new InfractionDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
     }
+    @PreAuthorize("hasAnyRole('ADMIN', 'COMANDO')")
     @PostMapping
     public ResponseEntity<InfractionDTO> create(@Valid @RequestBody InfractionDTO objDTO){
         Infraction newObj = service.create(objDTO);
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(newObj.getId()).toUri()).build();
     }
+    @PreAuthorize("hasAnyRole('ADMIN', 'COMANDO', 'DIRETOR')")
     @PutMapping(value = "/{id}")
     public ResponseEntity<InfractionDTO> update(@PathVariable Integer id, @Valid @RequestBody InfractionDTO objDTO){
         Infraction obj = service.update(id, objDTO);
         return ResponseEntity.ok().body(new InfractionDTO(obj));
     }
+    @PreAuthorize("hasAnyRole('ADMIN', 'COMANDO', 'DIRETOR')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<InfractionDTO> delete(@PathVariable Integer id){
         service.delete(id);

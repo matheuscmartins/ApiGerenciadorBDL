@@ -5,6 +5,7 @@ import br.com.brigadadoslobos.gerenciador.domains.dtos.AddressDTO;
 import br.com.brigadadoslobos.gerenciador.services.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -29,12 +30,14 @@ public class AddressResource {
         List<AddressDTO> listDTO = list.stream().map(obj -> new AddressDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
     }
+    @PreAuthorize("hasAnyRole('ADMIN', 'COMANDO', 'DIRETOR')")
     @PostMapping
     public ResponseEntity<AddressDTO> create(@Valid @RequestBody AddressDTO objDTO){
         Address newObj = service.create(objDTO);
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(newObj.getId()).toUri()).build();
     }
+    @PreAuthorize("hasAnyRole('ADMIN', 'COMANDO', 'DIRETOR')")
     @PutMapping(value = "/{id}")
     public ResponseEntity<AddressDTO> update(@PathVariable Integer id, @Valid @RequestBody AddressDTO objDTO){
         Address obj = service.update(id, objDTO);
