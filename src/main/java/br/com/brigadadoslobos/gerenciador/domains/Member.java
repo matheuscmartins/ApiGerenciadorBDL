@@ -61,6 +61,8 @@ public class Member implements Serializable {
     @JoinColumn(name = "bloodType_id")
     private BloodType bloodType;
 
+    private String imagePath;
+
     public Member() {
         addProfile(Profile.USUARIO);
     }
@@ -68,7 +70,7 @@ public class Member implements Serializable {
     public Member(Integer id, String firsName, String lastName, String nickName, String rg, String cpf, String cnh,
                   String celPhone, String phone, String familiarPhone1, String familiarPhone2,
                   String email, String password, LocalDate birthDate, LocalDate admissionDate,
-                  LocalDate shutdowDate, HeadQuarter headQuarter, Address address, BloodType bloodType) {
+                  LocalDate shutdowDate, HeadQuarter headQuarter, Address address, BloodType bloodType, String imagePath) {
         this.id = id;
         this.firsName = firsName;
         this.lastName = lastName;
@@ -88,6 +90,7 @@ public class Member implements Serializable {
         this.headQuarter = headQuarter;
         this.address = address;
         this.bloodType = bloodType;
+        this.imagePath = imagePath;
         addProfile(Profile.USUARIO);
     }
     public Member(MemberDTO obj) {
@@ -112,6 +115,7 @@ public class Member implements Serializable {
         this.headQuarter = obj.getHeadQuarter();
         this.address = obj.getAddress();
         this.bloodType = obj.getBloodType();
+        this.imagePath = obj.getImagePath();
     }
     public List<MemberPatch> getMemberPatch() {
         return memberPatchList;
@@ -279,6 +283,14 @@ public class Member implements Serializable {
 
     public void addProfile(Profile profile) {
         this.profile.add(profile.getId());
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     @Override

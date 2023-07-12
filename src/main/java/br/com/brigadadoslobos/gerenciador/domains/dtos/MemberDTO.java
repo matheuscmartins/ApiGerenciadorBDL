@@ -44,6 +44,7 @@ public class MemberDTO implements Serializable {
     private HeadQuarter headQuarter;
     private Address address;
     private BloodType bloodType;
+    private String imagePath;
 
     public MemberDTO(){
         super();
@@ -72,6 +73,7 @@ public class MemberDTO implements Serializable {
         this.headQuarter = obj.getHeadQuarter();
         this.address = obj.getAddress();
         this.bloodType = obj.getBloodType();
+        this.imagePath = obj.getImagePath();
         addProfile(Profile.USUARIO);
     }
 
@@ -213,6 +215,14 @@ public class MemberDTO implements Serializable {
 
     public Set<Profile> getProfile() {
         return profile.stream().map(x -> Profile.toEnum(x)).collect(Collectors.toSet());
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public void addProfile(Profile profile) {

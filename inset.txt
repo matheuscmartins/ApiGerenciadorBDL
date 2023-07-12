@@ -1,0 +1,10 @@
+insert into blood_type (description) values ('A-'), ('B+'), ('B-'), ('AB+'), ('AB-'), ('O+');
+insert into country (name) values ('Portugal'), ('Inglaterra');
+insert into uf (acronym , name , country_id ) values ('RO', 'Rondonia', 1), ('AC', 'Acre', 1), ('AM', 'Amazonas', 1), ('RJ', 'Rio de Janeiro', 1), ('EP', 'Exterior Portugal', 2),
+ ('EI', 'Exterior Ingraterra', 3);
+INSERT INTO CITY (NAME,UF_ID) VALUES ('São Paulo',1), ('Monte Alto',1), ('Curitiba',2), ('Rio de Janeiro',6),('Londres',8),('Lisboa',7),('Londrina',2);
+insert into patch (name) values ('Diretor Regional'), ('LSSL'),  ('Tesoureiro Regional'),  ('Sargento de Armas'),  ('Sub-Diretor'),  ('Diretor Nacional'), ('Vice-Presidente');
+insert into  ADDRESS ( adress_complement ,logradouro, number, post_code, city_id) values
+ (null, 'Rua Maria', '100', '19111-300', 1), (null, 'Av Brasil', '666', '19541-021', 1), 
+(null, 'Rua José', '84', '19189-021', 3), (null, 'Rua João', '58', '16941-021', 2), (null, 'Travessa das Rosas', '41', '19111-666', 4);
+insert into head_quarter (description, address_id ) values ('Sub-Sede Monte alto', 2),  ('Sub-Sede Mato Grosso', 4); 

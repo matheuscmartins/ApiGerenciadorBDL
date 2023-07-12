@@ -23,8 +23,8 @@ import java.util.Arrays;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private  static  final  String[] PUBLIC_MATCHERS = {"/swagger-ui/**"};
-//"/h2-console/**"
+    private  static  final  String[] PUBLIC_MATCHERS = {"/h2-console/**"};
+
 
     @Autowired
     private Environment env;
@@ -39,6 +39,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         if (Arrays.asList(env.getActiveProfiles()).contains("test")){
             http.headers().frameOptions().disable();
+            http.authorizeRequests()
+                    .antMatchers(
+                            "/v2/api-docs",
+                            "/swagger-ui/**",
+                            "/swagger-resources",
+                            "/swagger-resources/configuration/ui",
+                            "/swagger-resources/configuration/security")
+                    .permitAll();
         }
 
         http.cors().and().csrf().disable();
