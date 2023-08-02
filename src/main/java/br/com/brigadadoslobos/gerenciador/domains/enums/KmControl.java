@@ -1,16 +1,12 @@
 package br.com.brigadadoslobos.gerenciador.domains.enums;
 
-public enum InfractionType {
-    ESCRITA(0, "ESCRITA"),
-    SUSPENSAO(1, "SUSPENSAO"),
-    VERBAL(2, "VERBAL"),
-    DESLIGAMENTO(3, "DESLIGAMENTO"),
-    REBAIXAMENTO(4, "REBAIXAMENTO"),
-    EXPULSAO(5, "EXPULSAO");
+public enum KmControl {
+    KMCHEIO(0, "KMCHEIO"),
+    MEIOKM(1, "MEIOKM");
     private Integer id;
     private String description;
 
-    InfractionType(Integer id, String description) {
+    KmControl(Integer id, String description) {
         this.id = id;
         this.description = description;
     }
@@ -32,12 +28,12 @@ public enum InfractionType {
     }
 
 
-    public static InfractionType valueOf(int id) {
-        for (InfractionType value : InfractionType.values()) {
+    public static KmControl valueOf(int id) {
+        for (KmControl value : KmControl.values()) {
             if (value.getId() == id) {
                 return value;
             }
         }
-        throw new IllegalArgumentException("Codigo do Tipo de Advertencia Invalido");
+        throw new IllegalArgumentException("Codigo do Controle de KM Invalido");
     }
 }

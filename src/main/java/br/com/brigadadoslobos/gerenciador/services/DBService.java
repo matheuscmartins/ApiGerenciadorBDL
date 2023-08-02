@@ -2,6 +2,7 @@ package br.com.brigadadoslobos.gerenciador.services;
 
 import br.com.brigadadoslobos.gerenciador.domains.*;
 import br.com.brigadadoslobos.gerenciador.domains.enums.InfractionType;
+import br.com.brigadadoslobos.gerenciador.domains.enums.KmControl;
 import br.com.brigadadoslobos.gerenciador.domains.enums.Profile;
 import br.com.brigadadoslobos.gerenciador.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,8 @@ public class DBService {
     private InfractionRepository infractionRepository;
     @Autowired
     private FeedRepository feedRepository;
+    @Autowired
+    private TravelControlRepository travelControlRepository;
 
     public void instanciaDB() {
         BloodType bloodType1 = new BloodType(null, "A+");
@@ -125,5 +128,21 @@ public class DBService {
                         "A classe String permite a criação de suas instâncias de diversas maneiras. Ela possui vários construtores que recebem diversos tipos de parâmetros. Pelo fato de ser uma classe amplamente utilizada, ela também fornece um “atalho” para a criação de forma mais rápida de seus objetos, como pode ser observado no código da Listagem 1."
                 , headQuarter2);
         feedRepository.saveAll(Arrays.asList(feed1, feed2, feed3));
+
+        TravelControl travelControl1 = new TravelControl(null,LocalDate.parse("2020-08-11"),200.0,
+                "Presidente Prudente - SP", "Maringá - Pr",
+                "Viagem Comum", member1, KmControl.KMCHEIO);
+        TravelControl travelControl2 = new TravelControl(null,LocalDate.parse("2023-10-11"),1800.0,
+                "Presidente Prudente - SP", "Curitiba PR",
+                "Viagem Comum", member1, KmControl.KMCHEIO);
+        TravelControl travelControl3 = new TravelControl(null,LocalDate.parse("2019-01-14"),100.0,
+                "Presidente Prudente - SP", "Santo Inascio - Pr",
+                "Viagem Comum", member2, KmControl.MEIOKM);
+        TravelControl travelControl4 = new TravelControl(null,LocalDate.parse("2022-12-11"),500.0,
+                "Presidente Prudente - SP", "São Paulo SP",
+                "Viagem Comum", member2, KmControl.MEIOKM);
+
+        travelControlRepository.saveAll(Arrays.asList(travelControl1, travelControl2,
+                travelControl3, travelControl4));
     }
 }
