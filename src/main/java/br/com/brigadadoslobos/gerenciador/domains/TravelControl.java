@@ -116,6 +116,7 @@ public class TravelControl implements Serializable {
     }
 
     public void addKmControl(KmControl kmControl) {
+
         this.kmControl = KmControl.valueOf(kmControl.getId());
     }
 }

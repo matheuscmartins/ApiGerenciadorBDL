@@ -30,20 +30,20 @@ public class TravelControlResource {
         List<TravelControlDTO> listDTO = list.stream().map(obj -> new TravelControlDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
     }
-    @PreAuthorize("hasAnyRole('ADMIN', 'COMANDO')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'COMANDO', 'DIRETOR', 'EDITOR')")
     @PostMapping
     public ResponseEntity<TravelControlDTO> create(@Valid @RequestBody TravelControlDTO objDTO){
         TravelControl newObj = service.create(objDTO);
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(newObj.getId()).toUri()).build();
     }
-    @PreAuthorize("hasAnyRole('ADMIN', 'COMANDO', 'DIRETOR')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'COMANDO', 'DIRETOR', 'EDITOR')")
     @PutMapping(value = "/{id}")
     public ResponseEntity<TravelControlDTO> update(@PathVariable Integer id, @Valid @RequestBody TravelControlDTO objDTO){
         TravelControl obj = service.update(id, objDTO);
         return ResponseEntity.ok().body(new TravelControlDTO(obj));
     }
-    @PreAuthorize("hasAnyRole('ADMIN', 'COMANDO', 'DIRETOR')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'COMANDO', 'DIRETOR', 'EDITOR')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<TravelControlDTO> delete(@PathVariable Integer id){
         service.delete(id);
