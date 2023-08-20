@@ -47,4 +47,9 @@ public class InfractionService {
         obj.setMember(null);
         repository.save(obj);
     }
+
+    public List<Infraction> findByMemberId(Integer id) {
+        Optional<List<Infraction>> listOptional = repository.findByMemberId(id);
+        return listOptional.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+ id));
+    }
 }

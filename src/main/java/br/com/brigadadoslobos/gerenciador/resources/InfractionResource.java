@@ -49,4 +49,10 @@ public class InfractionResource {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+    @GetMapping(value = "/membro/{id}")
+    public ResponseEntity<List<InfractionDTO>>  findByMemberId(@PathVariable Integer id) {
+        List<Infraction> list = service.findByMemberId(id);
+        List<InfractionDTO> listDTO = list.stream().map(obj -> new InfractionDTO(obj)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDTO);
+    }
 }
