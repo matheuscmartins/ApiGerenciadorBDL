@@ -48,4 +48,10 @@ public class CityResource {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }*/
+   @GetMapping(value = "/nome/{name}")
+   public ResponseEntity<List<CityDTO>> findByName(@PathVariable String name){
+       List<City> list = service.findByName(name);
+       List<CityDTO> listDTO = list.stream().map(obj -> new CityDTO(obj)).collect(Collectors.toList());
+       return ResponseEntity.ok().body(listDTO);
+   }
 }

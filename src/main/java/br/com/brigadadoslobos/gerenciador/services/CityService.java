@@ -40,4 +40,9 @@ public class CityService {
       //throw new DataIntegrityViolationException("Não pode ser excluido");
       repository.deleteById(id);
    }
+
+    public List<City> findByName(String name) {
+        Optional<List<City>> listOptional = repository.findByName(name);
+        return listOptional.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Nome: "+ name));
+    }
 }
