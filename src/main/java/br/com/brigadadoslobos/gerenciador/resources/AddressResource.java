@@ -48,4 +48,21 @@ public class AddressResource {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }*/
+   @GetMapping(value = "/cidade/{id}")
+   public ResponseEntity<List<AddressDTO>> findByCityId(@PathVariable Integer id){
+       List<Address> list = service.findByCityId(id);
+       List<AddressDTO> listDTO = list.stream().map(obj -> new AddressDTO(obj)).collect(Collectors.toList());
+       return ResponseEntity.ok().body(listDTO);
+   }
+    @GetMapping(value = "/cep/{postCode}")
+    public ResponseEntity<AddressDTO> findByPostCode(@PathVariable String postCode) {
+        Address obj = service.findByPostCode(postCode);
+        return ResponseEntity.ok().body(new AddressDTO(obj));
+    }
+    @GetMapping(value = "/logradouro/{logradouro}")
+    public ResponseEntity<List<AddressDTO>> findByLogradouro(@PathVariable String logradouro){
+        List<Address> list = service.findByLogradouro(logradouro);
+        List<AddressDTO> listDTO = list.stream().map(obj -> new AddressDTO(obj)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDTO);
+    }
 }

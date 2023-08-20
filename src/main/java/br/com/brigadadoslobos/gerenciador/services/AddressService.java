@@ -51,4 +51,20 @@ public class AddressService {
             throw new DataIntegrityViolationException("CEP já cadastrado no sistema!");
         }
     }
+
+    public List<Address> findByCityId(Integer id) {
+        Optional<List<Address>> listOptional = repository.findByCityId(id);
+        return listOptional.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+ id));
+    }
+
+
+    public Address findByPostCode(String postCode) {
+        Optional<Address> obj = repository.findByPostCode(postCode);
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! CEP: "+ postCode));
+    }
+
+    public List<Address> findByLogradouro(String logradouro) {
+        Optional<List<Address>> listOptional = repository.findByLogradouro(logradouro);
+        return listOptional.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Rua: "+ logradouro));
+    }
 }
