@@ -48,4 +48,10 @@ public class HeadQuarterResource {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }*/
+
+    @GetMapping(value = "sede/{description}")
+    public ResponseEntity<HeadQuarterDTO> findByDescription(@PathVariable String description) {
+        HeadQuarter obj = service.findByDescription(description);
+        return ResponseEntity.ok().body(new HeadQuarterDTO(obj));
+    }
 }

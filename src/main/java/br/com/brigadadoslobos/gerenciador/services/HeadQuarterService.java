@@ -35,6 +35,7 @@ public class HeadQuarterService {
         oldObj = new HeadQuarter(objDTO);
         return repository.save(oldObj);
     }
+
     /*
    public void delete(Integer id) {
        HeadQuarter obj = findById(id);
@@ -42,4 +43,8 @@ public class HeadQuarterService {
       repository.deleteById(id);
    }
      */
+    public HeadQuarter findByDescription(String description) {
+        Optional<HeadQuarter> obj = repository.findByDescription(description);
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Descrição: "+ description));
+    }
 }
