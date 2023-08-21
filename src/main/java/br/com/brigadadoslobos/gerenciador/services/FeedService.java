@@ -47,4 +47,22 @@ public class FeedService {
         obj.setHeadQuarter(null);
         repository.save(obj);
     }
+
+    public List<Feed> findByDateReunionPeriod(String begin, String end) {
+        Optional<List<Feed>> listOptional = repository.findByDateReunionPeriod(begin, end);
+        return listOptional.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! nesse periodo: "
+                + begin +" á "+ end));
+    }
+
+    public List<Feed> FindbyHeadQuarterId(Integer id) {
+        Optional<List<Feed>> listOptional = repository.FindbyHeadQuarterId(id);
+        return listOptional.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! pra essa sede id: "
+                + id));
+    }
+
+    public List<Feed> FindbyHeadQuarterIdAndPeriod(Integer id, String begin, String end) {
+        Optional<List<Feed>> listOptional = repository.FindbyHeadQuarterIdAndPeriod(id, begin, end);
+        return listOptional.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! pra essa sede id: "
+                + id +" ou nesse periodo: " + begin +" á "+ end));
+    }
 }

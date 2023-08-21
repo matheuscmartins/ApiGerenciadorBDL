@@ -2,6 +2,7 @@ package br.com.brigadadoslobos.gerenciador.domains;
 
 import br.com.brigadadoslobos.gerenciador.domains.dtos.FeedDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,6 +21,7 @@ public class Feed implements Serializable {
     private String title;
     @Column(columnDefinition = "TEXT")
     private String text;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "headQuarter_id")
     private HeadQuarter headQuarter;
