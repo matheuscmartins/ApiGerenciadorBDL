@@ -16,9 +16,9 @@ public class TravelControlService {
     private TravelControlRepository repository;
 
 
-    public TravelControl findById(Integer id){
+    public TravelControl findById(Integer id) {
         Optional<TravelControl> obj = repository.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+ id));
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id));
     }
 
     public List<TravelControl> findAll() {
@@ -30,6 +30,7 @@ public class TravelControlService {
         TravelControl newObj = new TravelControl(objDTO);
         return repository.save(newObj);
     }
+
     public TravelControl update(Integer id, TravelControlDTO objDTO) {
         objDTO.setId(id);
         TravelControl oldObj = findById(id);
@@ -43,8 +44,20 @@ public class TravelControlService {
         //throw new DataIntegrityViolationException("Não pode ser excluido");
         repository.deleteById(id);
     }
+
     public void updateForDelete(TravelControl obj) {
         obj.setMember(null);
         repository.save(obj);
+    }
+
+    public List<TravelControl> findByMemberId(Integer id) {
+        Optional<List<TravelControl>> listOptional = repository.findByMemberId(id);
+        return listOptional.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! MembroId: " + id));
+    }
+
+    public List<TravelControl> FindbyHeadQuarterIdAndPeriod(Integer id, String begin, String end) {
+        Optional<List<TravelControl>> listOptional = repository.FindbyHeadQuarterIdAndPeriod(id, begin, end);
+        return listOptional.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! nesse periodo: "
+                + begin + " á " + end));
     }
 }

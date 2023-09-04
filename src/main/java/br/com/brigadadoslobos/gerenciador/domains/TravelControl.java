@@ -31,7 +31,7 @@ public class TravelControl implements Serializable {
     @Column(nullable = false)
     private KmControl kmControl;
 
-    public TravelControl(){
+    public TravelControl() {
     }
 
     public TravelControl(Integer id, LocalDate travelDate, Double km,
@@ -46,16 +46,18 @@ public class TravelControl implements Serializable {
         this.member = member;
         this.kmControl = KmControl.valueOf(kmControl.getId());
     }
+
     public TravelControl(TravelControlDTO obj) {
         this.id = obj.getId();
-        this.travelDate =  obj.getTravelDate();
+        this.travelDate = obj.getTravelDate();
         this.km = obj.getKm();
-        this.departureLocation =  obj.getDepartureLocation();
-        this.arrivalLocation =  obj.getArrivalLocation();
+        this.departureLocation = obj.getDepartureLocation();
+        this.arrivalLocation = obj.getArrivalLocation();
         this.description = obj.getDescription();
         this.member = obj.getMember();
-        this.kmControl =  obj.getKmControl();
+        this.kmControl = obj.getKmControl();
     }
+
     public Integer getId() {
         return id;
     }
@@ -111,6 +113,7 @@ public class TravelControl implements Serializable {
     public void setMember(Member member) {
         this.member = member;
     }
+
     public KmControl getKmControl() {
         return kmControl;
     }
