@@ -41,6 +41,9 @@ public class DBService {
     @Autowired
     private TravelControlRepository travelControlRepository;
 
+    @Autowired
+    private RoleDutyRepository roleDutyRepository;
+
     public void instanciaDB() {
         BloodType bloodType1 = new BloodType(null, "A+");
         BloodType bloodType2 = new BloodType(null, "O-");
@@ -144,5 +147,8 @@ public class DBService {
 
         travelControlRepository.saveAll(Arrays.asList(travelControl1, travelControl2,
                 travelControl3, travelControl4));
+        RoleDuty duty1 = new RoleDuty(null, "Diretor Regional", member1);
+        RoleDuty duty2 = new RoleDuty(null, "Diretor Nacional", member2);
+        roleDutyRepository.saveAll(Arrays.asList(duty1, duty2));
     }
 }
