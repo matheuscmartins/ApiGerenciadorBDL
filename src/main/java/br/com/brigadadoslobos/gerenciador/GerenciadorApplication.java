@@ -14,4 +14,8 @@ public class GerenciadorApplication {
         SpringApplication.run(GerenciadorApplication.class, args);
     }
     //link do Swagger http://localhost:8080/swagger-ui/index.html
+
+    //link do banco de dados teste http://localhost:8080/h2-console
+    //username: sa
+    //password:
 }
