@@ -29,4 +29,11 @@ public class UfResource {
         List<UfDTO> listDTO = list.stream().map(obj -> new UfDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
     }
+    @GetMapping(value = "/pais/{id}")
+    public ResponseEntity<List<UfDTO>> findByCountryId(@PathVariable Integer id) {
+        List<Uf> list = service.findByCountryId(id);
+        List<UfDTO> listDTO = list.stream().map(obj -> new UfDTO(obj)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDTO);
+    }
+
 }

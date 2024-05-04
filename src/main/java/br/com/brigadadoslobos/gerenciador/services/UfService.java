@@ -20,4 +20,8 @@ public class UfService {
     public List<Uf> findAll() {
         return repository.findAll();
     }
+    public List<Uf> findByCountryId(Integer id) {
+        Optional<List<Uf>> listOptional = repository.findByCountryId(id);
+        return listOptional.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! paisId: " + id));
+    }
 }
