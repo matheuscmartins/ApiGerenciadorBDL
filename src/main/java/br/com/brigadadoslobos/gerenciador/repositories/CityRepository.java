@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface CityRepository extends JpaRepository<City, Integer> {
     @Query(value ="SELECT * FROM city c WHERE c.name LIKE %:name% ", nativeQuery = true)
     Optional<List<City>> findByName(@Param("name") String name);
+    Optional<List<City>> findByUfId(@Param("ufId") Integer id);
 }

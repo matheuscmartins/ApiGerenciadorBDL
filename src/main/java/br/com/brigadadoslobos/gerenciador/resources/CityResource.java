@@ -54,4 +54,10 @@ public class CityResource {
        List<CityDTO> listDTO = list.stream().map(obj -> new CityDTO(obj)).collect(Collectors.toList());
        return ResponseEntity.ok().body(listDTO);
    }
+    @GetMapping(value = "/uf/{id}")
+    public ResponseEntity<List<CityDTO>> findByUfId(@PathVariable Integer id) {
+        List<City> list = service.findByUfId(id);
+        List<CityDTO> listDTO = list.stream().map(obj -> new CityDTO(obj)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDTO);
+    }
 }

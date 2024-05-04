@@ -45,4 +45,8 @@ public class CityService {
         Optional<List<City>> listOptional = repository.findByName(name);
         return listOptional.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Nome: "+ name));
     }
+    public List<City> findByUfId(Integer id) {
+        Optional<List<City>> listOptional = repository.findByUfId(id);
+        return listOptional.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! paisId: " + id));
+    }
 }
