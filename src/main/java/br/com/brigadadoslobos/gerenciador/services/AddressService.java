@@ -27,14 +27,14 @@ public class AddressService {
 
     public Address create(AddressDTO objDTO) {
         objDTO.setId(null);
-        validaPorCep(objDTO);
+        //validaPorCep(objDTO);
         Address newObj = new Address(objDTO);
         return repository.save(newObj);
     }
     public Address update(Integer id, AddressDTO objDTO) {
         objDTO.setId(id);
         Address oldObj = findById(id);
-        validaPorCep(objDTO);
+        //validaPorCep(objDTO);
         oldObj = new Address(objDTO);
         return repository.save(oldObj);
     }
