@@ -36,13 +36,14 @@ public class HeadQuarterService {
         return repository.save(oldObj);
     }
 
-    /*
+
    public void delete(Integer id) {
        HeadQuarter obj = findById(id);
+       obj.setAddress(null);
       //throw new DataIntegrityViolationException("Não pode ser excluido");
       repository.deleteById(id);
    }
-     */
+
     public HeadQuarter findByDescription(String description) {
         Optional<HeadQuarter> obj = repository.findByDescription(description);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Descrição: "+ description));

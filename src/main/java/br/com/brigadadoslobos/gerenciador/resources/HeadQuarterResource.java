@@ -43,11 +43,11 @@ public class HeadQuarterResource {
         HeadQuarter obj = service.update(id, objDTO);
         return ResponseEntity.ok().body(new HeadQuarterDTO(obj));
     }
-   /* @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<HeadQuarterDTO> delete(@PathVariable Integer id){
         service.delete(id);
         return ResponseEntity.noContent().build();
-    }*/
+    }
 
     @GetMapping(value = "sede/{description}")
     public ResponseEntity<HeadQuarterDTO> findByDescription(@PathVariable String description) {

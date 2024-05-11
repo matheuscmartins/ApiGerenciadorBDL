@@ -56,7 +56,7 @@ public class DBService {
         ufRepository.saveAll(Arrays.asList(uf1, uf2, uf2));
         City city1 = new City(null, "Maringá", uf2);
         City city2 = new City(null, "Presidente Prudente", uf1);
-        City city3 = new City(null, "S. J. do Rio Preto", uf1);
+        City city3 = new City(null, "Monte Alto", uf1);
         cityRepository.saveAll(Arrays.asList(city1, city2, city3));
         Patch patch1 = new Patch(null, "Próspero");
         Patch patch2 = new Patch(null, "Meio Escudo");
@@ -67,14 +67,14 @@ public class DBService {
         Address address2 = new Address(null, "Rua America", "1505", null,
                 "19111-021", city1);
         Address address3 = new Address(null, "Rua Paraná", "290", null,
-                "12411-300", city2);
+                "12411-300", city3);
         Address address4 = new Address(null, "Rua Homer Simpson", "340", null,
                 "20911-333", city2);
         addressRepository.saveAll(Arrays.asList(address1, address2, address3, address4));
 
-        HeadQuarter headQuarter1 = new HeadQuarter(null, "Sede Matriz", address1);
+        HeadQuarter headQuarter1 = new HeadQuarter(null, "Sede Matriz Maringá", address1);
         HeadQuarter headQuarter2 = new HeadQuarter(null, "Sub-Sede Pres. Prudente", address4);
-        HeadQuarter headQuarter3 = new HeadQuarter(null, "Sub-Sede Rio Preto", null);
+        HeadQuarter headQuarter3 = new HeadQuarter(null, "Sub-Sede Monte Alto", address3);
         headQuarterRepository.saveAll(Arrays.asList(headQuarter1, headQuarter2, headQuarter3));
         Member member1 = new Member(null, "Primeiro Nome", "Sobre Nome", "Apelido",
                 "00111111-8", "866.865.710-08", "090929302938-AB", "189999-9999", null,
