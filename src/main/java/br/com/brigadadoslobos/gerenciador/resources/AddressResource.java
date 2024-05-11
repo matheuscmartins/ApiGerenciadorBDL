@@ -43,11 +43,11 @@ public class AddressResource {
         Address obj = service.update(id, objDTO);
         return ResponseEntity.ok().body(new AddressDTO(obj));
     }
-   /* @DeleteMapping(value = "/{id}")
+   @DeleteMapping(value = "/{id}")
     public ResponseEntity<AddressDTO> delete(@PathVariable Integer id){
         service.delete(id);
         return ResponseEntity.noContent().build();
-    }*/
+    }
    @GetMapping(value = "/cidade/{id}")
    public ResponseEntity<List<AddressDTO>> findByCityId(@PathVariable Integer id){
        List<Address> list = service.findByCityId(id);

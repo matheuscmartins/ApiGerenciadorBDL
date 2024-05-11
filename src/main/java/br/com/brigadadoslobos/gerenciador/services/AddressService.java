@@ -38,13 +38,13 @@ public class AddressService {
         oldObj = new Address(objDTO);
         return repository.save(oldObj);
     }
-    /*
+
    public void delete(Integer id) {
        Address obj = findById(id);
       //throw new DataIntegrityViolationException("Não pode ser excluido");
       repository.deleteById(id);
    }
-     */
+
     private void validaPorCep(AddressDTO objDTO){
         Optional<Address> obj = repository.findByPostCode(objDTO.getPostCode());
         if (obj.isPresent() && obj.get().getId() != objDTO.getId()){
