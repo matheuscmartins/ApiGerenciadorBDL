@@ -18,7 +18,7 @@ public class Member implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(length = 20)
-    private String firsName;
+    private String firstName;
     @Column(length = 100)
     private String lastName;
     @Column(length = 20)
@@ -67,12 +67,12 @@ public class Member implements Serializable {
         addProfile(Profile.USUARIO);
     }
 
-    public Member(Integer id, String firsName, String lastName, String nickName, String rg, String cpf, String cnh,
+    public Member(Integer id, String firstName, String lastName, String nickName, String rg, String cpf, String cnh,
                   String celPhone, String phone, String familiarPhone1, String familiarPhone2,
                   String email, String password, LocalDate birthDate, LocalDate admissionDate,
                   LocalDate shutdowDate, HeadQuarter headQuarter, Address address, BloodType bloodType, String imagePath) {
         this.id = id;
-        this.firsName = firsName;
+        this.firstName = firstName;
         this.lastName = lastName;
         this.nickName = nickName;
         this.rg = rg;
@@ -95,7 +95,7 @@ public class Member implements Serializable {
     }
     public Member(MemberDTO obj) {
         this.id = obj.getId();
-        this.firsName = obj.getFirsName();
+        this.firstName = obj.getFirstName();
         this.lastName = obj.getLastName();
         this.nickName = obj.getNickName();
         this.rg = obj.getRg();
@@ -133,12 +133,12 @@ public class Member implements Serializable {
         this.id = id;
     }
 
-    public String getFirsName() {
-        return firsName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirsName(String firsName) {
-        this.firsName = firsName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {

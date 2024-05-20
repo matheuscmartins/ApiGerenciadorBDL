@@ -18,7 +18,7 @@ public class MemberDTO implements Serializable {
 
     private Integer id;
     @NotNull(message = "O campo NOME é requerido")
-    private String firsName;
+    private String firstName;
     private String lastName;
     private String nickName;
     private String rg;
@@ -53,7 +53,7 @@ public class MemberDTO implements Serializable {
 
     public MemberDTO(Member obj) {
         this.id = obj.getId();
-        this.firsName = obj.getFirsName();
+        this.firstName = obj.getFirstName();
         this.lastName = obj.getLastName();
         this.nickName = obj.getNickName();
         this.rg = obj.getRg();
@@ -85,12 +85,12 @@ public class MemberDTO implements Serializable {
         this.id = id;
     }
 
-    public String getFirsName() {
-        return firsName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirsName(String firsName) {
-        this.firsName = firsName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
