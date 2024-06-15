@@ -79,13 +79,13 @@ public class DBService {
         Member member1 = new Member(null, "Primeiro Nome", "Sobre Nome", "Apelido",
                 "00111111-8", "866.865.710-08", "090929302938-AB", "189999-9999", null,
                 null, null, "member1@hotmail.com", encoder.encode("senha123"),
-                LocalDate.parse("2000-11-10"), LocalDate.now(), null, headQuarter1, address1,
+                LocalDate.parse("2000-11-22"), LocalDate.now(), null, headQuarter1, address1,
                 bloodType1,"caminho da foto");
         member1.addProfile(Profile.ADMIN);
         Member member2 = new Member(null, "Primeiro Nome2", "Sobre Nome2", "Apelido2",
                 "00111111-8", "518.218.740-80", "090929302938-AB", "189999-9999", null,
                 null, null, "member2@hotmail.com", encoder.encode("senha123"),
-                LocalDate.parse("1994-05-01"), LocalDate.parse("2015-08-11"), null, headQuarter2,
+                LocalDate.parse("1994-05-01"), LocalDate.parse("2015-08-28"), null, headQuarter2,
                 address3, bloodType2,"caminho da foto");
         member2.addProfile(Profile.USUARIO);
         memberRepository.saveAll(Arrays.asList(member1, member2));

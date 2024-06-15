@@ -64,6 +64,7 @@ public class Member implements Serializable {
     private String imagePath;
 
     public Member() {
+        super();
         addProfile(Profile.USUARIO);
     }
 
@@ -111,7 +112,7 @@ public class Member implements Serializable {
         this.admissionDate = obj.getAdmissionDate();
         this.shutdowDate = obj.getShutdowDate();
         this.memberPatchList = obj.getMemberPatchList();
-        this.profile = obj.getProfile().stream().map(x -> x.getId()).collect(Collectors.toSet()); ;
+        this.profile = obj.getProfile().stream().map(x -> x.getId()).collect(Collectors.toSet());
         this.headQuarter = obj.getHeadQuarter();
         this.address = obj.getAddress();
         this.bloodType = obj.getBloodType();
