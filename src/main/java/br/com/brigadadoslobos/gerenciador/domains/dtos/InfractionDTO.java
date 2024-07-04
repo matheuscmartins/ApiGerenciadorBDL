@@ -4,7 +4,6 @@ import br.com.brigadadoslobos.gerenciador.domains.Infraction;
 import br.com.brigadadoslobos.gerenciador.domains.Member;
 import br.com.brigadadoslobos.gerenciador.domains.enums.InfractionType;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Column;
 import java.io.Serializable;
@@ -16,7 +15,6 @@ public class InfractionDTO implements Serializable {
     private String description;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate infractionDate;
-    @JsonIgnore
     private Member member;
     @Column(nullable = false)
     private InfractionType infractionType;
