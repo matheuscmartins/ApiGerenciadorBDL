@@ -147,8 +147,8 @@ public class DBService {
 
         travelControlRepository.saveAll(Arrays.asList(travelControl1, travelControl2,
                 travelControl3, travelControl4));
-        RoleDuty duty1 = new RoleDuty(null, "Diretor Regional", member1);
-        RoleDuty duty2 = new RoleDuty(null, "Diretor Nacional", member2);
+        RoleDuty duty1 = new RoleDuty(null, "Diretor Regional", LocalDate.now(), null, member1);
+        RoleDuty duty2 = new RoleDuty(null, "Diretor Nacional", LocalDate.now(), null, member2);
         roleDutyRepository.saveAll(Arrays.asList(duty1, duty2));
     }
 }
