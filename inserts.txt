@@ -4,7 +4,7 @@ insert into uf (acronym , name , country_id ) values ('RO', 'Rondonia', 1), ('AC
  ('EI', 'Exterior Ingraterra', 3);
 INSERT INTO CITY (NAME,UF_ID) VALUES ('São Paulo',1), ('Monte Alto',1), ('Curitiba',2), ('Rio de Janeiro',6),('Londres',8),('Lisboa',7),('Londrina',2);
 INSERT INTO CITY (NAME,UF_ID) VALUES ('Rio de Janeiro',6), ('Parati',6);
-insert into patch (name) values ('Diretor Regional'), ('LSSL'),  ('Tesoureiro Regional'),  ('Sargento de Armas'),  ('Sub-Diretor'),  ('Diretor Nacional'), ('Vice-Presidente');
+insert into patch (name) values  ('LSSL'),('Nomade') ,('Ubuntu');
 insert into  ADDRESS ( adress_complement ,logradouro, number, post_code, city_id) values
  (null, 'Rua Maria', '100', '19111-300', 1), (null, 'Av Brasil', '666', '19541-021', 1), 
 (null, 'Rua José', '84', '19189-021', 3), (null, 'Rua João', '58', '16941-021', 2), (null, 'Travessa das Rosas', '41', '19111-666', 4);

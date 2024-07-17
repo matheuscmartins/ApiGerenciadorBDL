@@ -4,7 +4,6 @@ import br.com.brigadadoslobos.gerenciador.domains.Member;
 import br.com.brigadadoslobos.gerenciador.domains.MemberPatch;
 import br.com.brigadadoslobos.gerenciador.domains.Patch;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -16,7 +15,6 @@ public class MemberPatchDTO implements Serializable {
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate admissionDate;
-    @JsonIgnore
     private Member member;
     private Patch patch;
 

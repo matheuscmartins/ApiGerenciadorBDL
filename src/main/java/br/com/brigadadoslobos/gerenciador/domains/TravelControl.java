@@ -3,7 +3,6 @@ package br.com.brigadadoslobos.gerenciador.domains;
 import br.com.brigadadoslobos.gerenciador.domains.dtos.TravelControlDTO;
 import br.com.brigadadoslobos.gerenciador.domains.enums.KmControl;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,7 +23,6 @@ public class TravelControl implements Serializable {
     @Column(nullable = false)
     private String arrivalLocation;
     private String description;
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;

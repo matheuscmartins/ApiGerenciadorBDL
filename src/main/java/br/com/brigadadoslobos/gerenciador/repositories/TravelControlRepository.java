@@ -17,4 +17,5 @@ public interface TravelControlRepository extends JpaRepository<TravelControl, In
             " WHERE HD.ID = :headQuarterid AND T.travel_date BETWEEN :begin and :end ", nativeQuery = true)
     Optional<List<TravelControl>> FindbyHeadQuarterIdAndPeriod(@Param("headQuarterid") Integer id,
                                                          @Param("begin")String begin, @Param("end")String end);
+
 }

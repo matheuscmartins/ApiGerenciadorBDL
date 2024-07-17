@@ -4,7 +4,6 @@ import br.com.brigadadoslobos.gerenciador.domains.Member;
 import br.com.brigadadoslobos.gerenciador.domains.TravelControl;
 import br.com.brigadadoslobos.gerenciador.domains.enums.KmControl;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Column;
 import java.io.Serializable;
@@ -19,7 +18,6 @@ public class TravelControlDTO implements Serializable {
     private String departureLocation;
     private String arrivalLocation;
     private String description;
-    @JsonIgnore
     private Member member;
     @Column(nullable = false)
     private KmControl kmControl;
