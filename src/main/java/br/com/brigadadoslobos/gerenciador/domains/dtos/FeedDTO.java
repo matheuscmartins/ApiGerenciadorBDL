@@ -3,7 +3,6 @@ package br.com.brigadadoslobos.gerenciador.domains.dtos;
 import br.com.brigadadoslobos.gerenciador.domains.Feed;
 import br.com.brigadadoslobos.gerenciador.domains.HeadQuarter;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
@@ -23,7 +22,6 @@ public class FeedDTO implements Serializable {
     @NotNull(message = "O campo Texto é requerido")
     @Column(columnDefinition = "TEXT")
     private String text;
-    @JsonIgnore
     @NotNull(message = "O campo Sede é requerido")
     private HeadQuarter headQuarter;
     public FeedDTO(){}
