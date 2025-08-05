@@ -27,7 +27,13 @@ public class AddressResource {
     @GetMapping
     public ResponseEntity<List<AddressDTO>> findAll(){
         List<Address> list = service.findAll();
-        List<AddressDTO> listDTO = list.stream().map(obj -> new AddressDTO(obj)).collect(Collectors.toList());
+        List<AddressDTO> listDTO = list.stream().map(obj -> new AddressDTO(
+                obj.getId(),
+                obj.getLogradouro(),
+                obj.getNumber(),
+                obj.getPostCode(),
+                obj.getCity()
+        )).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
     }
     @PreAuthorize("hasAnyRole('ADMIN', 'COMANDO', 'DIRETOR')")

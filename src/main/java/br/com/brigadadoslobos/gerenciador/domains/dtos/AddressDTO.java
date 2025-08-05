@@ -32,6 +32,13 @@ public class AddressDTO implements Serializable {
         this.postCode = obj.getPostCode();
         this.city = obj.getCity();
     }
+    public AddressDTO(Integer id, String logradouro, String number, String postCode, City city) {
+        this.id = id;
+        this.logradouro = logradouro;
+        this.number = number;
+        this.postCode = postCode;
+        this.city = city;
+    }
 
     public Integer getId() {
         return id;
