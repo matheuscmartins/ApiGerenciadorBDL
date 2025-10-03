@@ -2,6 +2,7 @@ package br.com.brigadadoslobos.gerenciador.resources;
 
 import br.com.brigadadoslobos.gerenciador.domains.Feed;
 import br.com.brigadadoslobos.gerenciador.domains.dtos.FeedDTO;
+import br.com.brigadadoslobos.gerenciador.domains.dtos.summarys.FeedSummaryDTO;
 import br.com.brigadadoslobos.gerenciador.services.FeedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,10 +26,17 @@ public class FeedResource {
         return ResponseEntity.ok().body(new FeedDTO(obj));
     }
 
+    /*
     @GetMapping
     public ResponseEntity<List<FeedDTO>> findAll() {
         List<Feed> list = service.findAll();
         List<FeedDTO> listDTO = list.stream().map(obj -> new FeedDTO(obj)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDTO);
+    }
+     */
+    @GetMapping
+    public ResponseEntity<List<FeedSummaryDTO>> findAll() {
+        List<FeedSummaryDTO> listDTO = service.findAllSummaries();
         return ResponseEntity.ok().body(listDTO);
     }
 
@@ -75,4 +83,28 @@ public class FeedResource {
         List<FeedDTO> listDTO = list.stream().map(obj -> new FeedDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
     }
+
+    /*
+    @GetMapping("/summaries")
+    public ResponseEntity<List<FeedSummaryDTO>> findAllSummaries() {
+        return ResponseEntity.ok().body(service.findAllSummaries());
+    }
+
+    @GetMapping("/sede/{id}/summaries")
+    public ResponseEntity<List<FeedSummaryDTO>> findSummariesByHeadQuarter(@PathVariable Integer id) {
+        return ResponseEntity.ok().body(service.FindSummariesByHeadQuarterId(id));
+    }
+
+    @GetMapping("/sede/{id}/periodo/{begin}/{end}/summaries")
+    public ResponseEntity<List<FeedSummaryDTO>> findSummariesByHeadQuarterAndPeriod(
+            @PathVariable Integer id, @PathVariable String begin, @PathVariable String end) {
+        return ResponseEntity.ok().body(service.FindSummariesByHeadQuarterIdAndPeriod(id, begin, end));
+    }
+
+    @GetMapping("/periodo/{begin}/{end}/summaries")
+    public ResponseEntity<List<FeedSummaryDTO>> findSummariesByPeriod(
+            @PathVariable String begin, @PathVariable String end) {
+        return ResponseEntity.ok().body(service.findSummariesByPeriod(begin, end));
+    }
+     */
 }

@@ -2,6 +2,7 @@ package br.com.brigadadoslobos.gerenciador.services;
 
 import br.com.brigadadoslobos.gerenciador.domains.Address;
 import br.com.brigadadoslobos.gerenciador.domains.dtos.AddressDTO;
+import br.com.brigadadoslobos.gerenciador.domains.dtos.summarys.AddressSummaryDTO;
 import br.com.brigadadoslobos.gerenciador.repositories.AddressRepository;
 import br.com.brigadadoslobos.gerenciador.services.exceptions.DataIntegrityViolationException;
 import br.com.brigadadoslobos.gerenciador.services.exceptions.ObjectNotFoundException;
@@ -23,6 +24,10 @@ public class AddressService {
 
     public List<Address> findAll() {
         return repository.findAll();
+    }
+
+    public List<AddressSummaryDTO> findAllSummary() {
+        return repository.findAllSummary();
     }
 
     public Address create(AddressDTO objDTO) {

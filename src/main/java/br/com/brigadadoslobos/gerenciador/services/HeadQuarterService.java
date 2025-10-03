@@ -36,7 +36,6 @@ public class HeadQuarterService {
         return repository.save(oldObj);
     }
 
-
    public void delete(Integer id) {
        HeadQuarter obj = findById(id);
        obj.setAddress(null);

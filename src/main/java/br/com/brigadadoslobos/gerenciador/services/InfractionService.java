@@ -2,6 +2,7 @@ package br.com.brigadadoslobos.gerenciador.services;
 
 import br.com.brigadadoslobos.gerenciador.domains.Infraction;
 import br.com.brigadadoslobos.gerenciador.domains.dtos.InfractionDTO;
+import br.com.brigadadoslobos.gerenciador.domains.dtos.summarys.InfractionSummaryDTO;
 import br.com.brigadadoslobos.gerenciador.repositories.InfractionRepository;
 import br.com.brigadadoslobos.gerenciador.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class InfractionService {
 
     public List<Infraction> findAll() {
         return repository.findAll();
+    }
+
+    // Novo: obter summaries para o front
+    public List<InfractionSummaryDTO> findAllSummaries() {
+        return repository.findAllSummaries();
     }
 
     public Infraction create(InfractionDTO objDTO) {

@@ -2,6 +2,7 @@ package br.com.brigadadoslobos.gerenciador.services;
 
 import br.com.brigadadoslobos.gerenciador.domains.Member;
 import br.com.brigadadoslobos.gerenciador.domains.dtos.MemberDTO;
+import br.com.brigadadoslobos.gerenciador.domains.dtos.summarys.MemberSummaryDTO;
 import br.com.brigadadoslobos.gerenciador.repositories.MemberRepository;
 import br.com.brigadadoslobos.gerenciador.services.exceptions.DataIntegrityViolationException;
 import br.com.brigadadoslobos.gerenciador.services.exceptions.ObjectNotFoundException;
@@ -24,9 +25,12 @@ public class MemberService {
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+ id));
     }
 
-    public List<Member> findAll() {
+   /* public List<Member> findAll() {
         return repository.findAll();
-    }
+    } */
+   public List<MemberSummaryDTO> findAllSummary() {
+       return repository.findAllSummary();
+   }
 
     public Member create(MemberDTO objDTO) {
         objDTO.setId(null);

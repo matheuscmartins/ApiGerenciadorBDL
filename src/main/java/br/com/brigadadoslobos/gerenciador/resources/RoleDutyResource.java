@@ -2,6 +2,7 @@ package br.com.brigadadoslobos.gerenciador.resources;
 
 import br.com.brigadadoslobos.gerenciador.domains.RoleDuty;
 import br.com.brigadadoslobos.gerenciador.domains.dtos.RoleDutyDTO;
+import br.com.brigadadoslobos.gerenciador.domains.dtos.summarys.RoleDutySummaryDTO;
 import br.com.brigadadoslobos.gerenciador.services.RoleDutyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,12 +25,21 @@ public class RoleDutyResource {
         RoleDuty obj = service.findById(id);
         return ResponseEntity.ok().body(new RoleDutyDTO(obj));
     }
+    /*
     @GetMapping
     public ResponseEntity<List<RoleDutyDTO>> findAll(){
         List<RoleDuty> list = service.findAll();
         List<RoleDutyDTO> listDTO = list.stream().map(obj -> new RoleDutyDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
     }
+     */
+
+    @GetMapping
+    public ResponseEntity<List<RoleDutySummaryDTO>> findAll(){
+        List<RoleDutySummaryDTO> listDTO = service.findAllSummaries();
+        return ResponseEntity.ok().body(listDTO);
+    }
+
     @PreAuthorize("hasAnyRole('ADMIN', 'COMANDO')")
     @PostMapping
     public ResponseEntity<RoleDutyDTO> create(@Valid @RequestBody RoleDutyDTO objDTO){

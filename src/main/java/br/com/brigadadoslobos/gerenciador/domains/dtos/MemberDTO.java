@@ -77,6 +77,20 @@ public class MemberDTO implements Serializable {
         addProfile(Profile.USUARIO);
     }
 
+    public MemberDTO(Integer id, String firstName, String lastName, String nickName,
+                     Integer headQuarterId, String headQuarterName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.nickName = nickName;
+        if (headQuarterId != null || headQuarterName != null) {
+            HeadQuarter h = new HeadQuarter();
+            h.setId(headQuarterId);
+            h.setDescription(headQuarterName);
+            this.headQuarter = h;
+        }
+    }
+
     public Integer getId() {
         return id;
     }

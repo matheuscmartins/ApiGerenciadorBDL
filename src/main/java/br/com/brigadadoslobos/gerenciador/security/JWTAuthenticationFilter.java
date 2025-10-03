@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -39,7 +41,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             throw new RuntimeException(e);
         }
     }
-
+/*
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                             FilterChain chain, Authentication authResult)
@@ -49,6 +51,40 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setHeader("access-control-expose-headers", "Authorization");
         response.setHeader("Authorization", "Bearer " + token);
     }
+ */
+@Override
+protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+                                        FilterChain chain, Authentication authResult)
+        throws IOException, ServletException {
+    UserSS user = (UserSS) authResult.getPrincipal();
+    String username = user.getUsername();
+
+    // extrai roles do UserSS
+    List<String> roles = user.getAuthorities().stream()
+            .map(ga -> ga.getAuthority())
+            .collect(Collectors.toList());
+
+    // gerar token incluindo roles
+    String token = jwtUtil.generateToken(username, roles);
+
+    // expor header pro browser poder ler Authorization
+    response.setHeader("access-control-expose-headers", "Authorization");
+    response.setHeader("Authorization", "Bearer " + token);
+
+    // retornar também no body um JSON com token + roles (útil pro front)
+    response.setContentType("application/json");
+    response.setCharacterEncoding("UTF-8");
+
+    // exemplo de JSON: {"token":"Bearer ...","roles":["ROLE_ADMIN","ROLE_EDITOR"], "email":"user@x"}
+    String body = new ObjectMapper().writeValueAsString(
+            java.util.Map.of(
+                    "token", "Bearer " + token,
+                    "roles", roles,
+                    "email", username
+            )
+    );
+    response.getWriter().write(body);
+}
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,

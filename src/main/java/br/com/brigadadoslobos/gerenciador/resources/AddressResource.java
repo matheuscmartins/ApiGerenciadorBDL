@@ -2,6 +2,7 @@ package br.com.brigadadoslobos.gerenciador.resources;
 
 import br.com.brigadadoslobos.gerenciador.domains.Address;
 import br.com.brigadadoslobos.gerenciador.domains.dtos.AddressDTO;
+import br.com.brigadadoslobos.gerenciador.domains.dtos.summarys.AddressSummaryDTO;
 import br.com.brigadadoslobos.gerenciador.services.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +37,12 @@ public class AddressResource {
         )).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
     }
+    @GetMapping("/summary")
+    public ResponseEntity<List<AddressSummaryDTO>> findSummaryAll() {
+        List<AddressSummaryDTO> listDTO = service.findAllSummary();
+        return ResponseEntity.ok().body(listDTO);
+    }
+
     @PreAuthorize("hasAnyRole('ADMIN', 'COMANDO', 'DIRETOR')")
     @PostMapping
     public ResponseEntity<AddressDTO> create(@Valid @RequestBody AddressDTO objDTO){

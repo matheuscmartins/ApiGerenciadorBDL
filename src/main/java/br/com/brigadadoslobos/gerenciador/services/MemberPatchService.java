@@ -2,6 +2,7 @@ package br.com.brigadadoslobos.gerenciador.services;
 
 import br.com.brigadadoslobos.gerenciador.domains.MemberPatch;
 import br.com.brigadadoslobos.gerenciador.domains.dtos.MemberPatchDTO;
+import br.com.brigadadoslobos.gerenciador.domains.dtos.summarys.MemberPatchSummaryDTO;
 import br.com.brigadadoslobos.gerenciador.repositories.MemberPatchRepository;
 import br.com.brigadadoslobos.gerenciador.repositories.MemberRepository;
 import br.com.brigadadoslobos.gerenciador.repositories.PatchRepository;
@@ -30,6 +31,10 @@ public class MemberPatchService {
         return repository.findAll();
     }
 
+    public List<MemberPatchSummaryDTO> findAllSummaries() {
+        return repository.findAllSummaries();
+    }
+
     public MemberPatch create(MemberPatchDTO objDTO) {
         objDTO.setId(null);
         MemberPatch newObj = new MemberPatch(objDTO);
@@ -53,6 +58,4 @@ public class MemberPatchService {
         obj.setMember(null);
         repository.save(obj);
     }
-
-
 }

@@ -2,6 +2,7 @@ package br.com.brigadadoslobos.gerenciador.resources;
 
 import br.com.brigadadoslobos.gerenciador.domains.Member;
 import br.com.brigadadoslobos.gerenciador.domains.dtos.MemberDTO;
+import br.com.brigadadoslobos.gerenciador.domains.dtos.summarys.MemberSummaryDTO;
 import br.com.brigadadoslobos.gerenciador.services.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/membros")
@@ -24,12 +24,21 @@ public class MemberResource {
         Member obj = service.findById(id);
         return ResponseEntity.ok().body(new MemberDTO(obj));
     }
+    /*
     @GetMapping
     public ResponseEntity<List<MemberDTO>> findAll(){
         List<Member> list = service.findAll();
         List<MemberDTO> listDTO = list.stream().map(obj -> new MemberDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
     }
+    */
+
+    @GetMapping
+    public ResponseEntity<List<MemberSummaryDTO>> findAll(){
+        List<MemberSummaryDTO> listDTO = service.findAllSummary();
+        return ResponseEntity.ok().body(listDTO);
+    }
+
     @PreAuthorize("hasAnyRole('ADMIN', 'COMANDO', 'DIRETOR')")
     @PostMapping
     public ResponseEntity<MemberDTO> create(@Valid @RequestBody MemberDTO objDTO){

@@ -2,6 +2,7 @@ package br.com.brigadadoslobos.gerenciador.resources;
 
 import br.com.brigadadoslobos.gerenciador.domains.Infraction;
 import br.com.brigadadoslobos.gerenciador.domains.dtos.InfractionDTO;
+import br.com.brigadadoslobos.gerenciador.domains.dtos.summarys.InfractionSummaryDTO;
 import br.com.brigadadoslobos.gerenciador.services.InfractionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,12 +25,22 @@ public class InfractionResource {
         Infraction obj = service.findById(id);
         return ResponseEntity.ok().body(new InfractionDTO(obj));
     }
+
+   /*
     @GetMapping
     public ResponseEntity<List<InfractionDTO>> findAll(){
         List<Infraction> list = service.findAll();
         List<InfractionDTO> listDTO = list.stream().map(obj -> new InfractionDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
+    }*/
+
+    // ALTERADO: retorna somente summary para a lista
+    @GetMapping
+    public ResponseEntity<List<InfractionSummaryDTO>> findAll(){
+        List<InfractionSummaryDTO> listDTO = service.findAllSummaries();
+        return ResponseEntity.ok().body(listDTO);
     }
+
     @PreAuthorize("hasAnyRole('ADMIN', 'COMANDO')")
     @PostMapping
     public ResponseEntity<InfractionDTO> create(@Valid @RequestBody InfractionDTO objDTO){

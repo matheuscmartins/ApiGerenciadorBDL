@@ -2,6 +2,7 @@ package br.com.brigadadoslobos.gerenciador.services;
 
 import br.com.brigadadoslobos.gerenciador.domains.RoleDuty;
 import br.com.brigadadoslobos.gerenciador.domains.dtos.RoleDutyDTO;
+import br.com.brigadadoslobos.gerenciador.domains.dtos.summarys.RoleDutySummaryDTO;
 import br.com.brigadadoslobos.gerenciador.repositories.RoleDutyRepository;
 import br.com.brigadadoslobos.gerenciador.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,10 @@ public class RoleDutyService {
 
     public List<RoleDuty> findAll() {
         return repository.findAll();
+    }
+
+    public List<RoleDutySummaryDTO> findAllSummaries() {
+        return repository.findAllSummaries();
     }
 
     public RoleDuty create(RoleDutyDTO objDTO) {

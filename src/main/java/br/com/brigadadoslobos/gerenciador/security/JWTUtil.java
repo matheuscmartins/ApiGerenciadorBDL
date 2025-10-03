@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 
 @Component
 public class JWTUtil {
@@ -18,6 +19,15 @@ public class JWTUtil {
     public String generateToken(String email){
         return Jwts.builder()
                 .setSubject(email)
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(SignatureAlgorithm.HS512, secret.getBytes())
+                .compact();
+    }
+    // nova: gera token incluindo roles como claim
+    public String generateToken(String email, List<String> roles){
+        return Jwts.builder()
+                .setSubject(email)
+                .claim("roles", roles)              // aqui incluímos os perfis
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(SignatureAlgorithm.HS512, secret.getBytes())
                 .compact();
@@ -48,6 +58,18 @@ public class JWTUtil {
         Claims claims = getClaims(token);
         if (claims != null) {
             return claims.getSubject();
+        }
+        return null;
+    }
+    // novo: obter lista de roles do token (pode retornar null)
+    @SuppressWarnings("unchecked")
+    public List<String> getRoles(String token) {
+        Claims claims = getClaims(token);
+        if (claims != null) {
+            Object rolesObj = claims.get("roles");
+            if (rolesObj instanceof List) {
+                return (List<String>) rolesObj;
+            }
         }
         return null;
     }
