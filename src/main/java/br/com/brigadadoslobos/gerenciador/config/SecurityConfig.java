@@ -14,17 +14,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private  static  final  String[] PUBLIC_MATCHERS = {"/h2-console/**"};
 
+    private static final String[] PUBLIC_MATCHERS = {
+            "/h2-console/**"
+    };
 
     @Autowired
     private Environment env;
@@ -37,23 +36,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        if (Arrays.asList(env.getActiveProfiles()).contains("test")){
+        // H2 Console (apenas em teste)
+        if (Arrays.asList(env.getActiveProfiles()).contains("test")) {
             http.headers().frameOptions().disable();
-            http.authorizeRequests()
-                    .antMatchers(
-                            "/v2/api-docs",
-                            "/swagger-ui/**",
-                            "/swagger-resources",
-                            "/swagger-resources/configuration/ui",
-                            "/swagger-resources/configuration/security")
-                    .permitAll();
         }
 
-        http.cors().and().csrf().disable();
+        http.csrf().disable();
+
+        // Filtros JWT
         http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
         http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
-        http.authorizeRequests().antMatchers(PUBLIC_MATCHERS).permitAll().anyRequest().authenticated();
 
+        // Autorização
+        http.authorizeRequests()
+                .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/uploads/**").permitAll()
+                .antMatchers(
+                        "/v2/api-docs",
+                        "/v3/api-docs/**",
+                        "/swagger-ui/**",
+                        "/swagger-ui.html",
+                        "/swagger-resources/**",
+                        "/configuration/**",
+                        "/webjars/**"
+                ).permitAll()
+                .antMatchers("/api/auth/**").permitAll()
+                .anyRequest().authenticated();
+
+        // Sessão stateless
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
@@ -62,17 +72,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
 
-    @Bean
-    CorsConfigurationSource corsConfigurationSource(){
-        CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
-        configuration.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "OPTIONS"));
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
+    // ❌ REMOVIDO TODO O MÉTODO corsConfigurationSource()
+    // Não precisa mais porque o SimpleCorsFilter cuida do CORS
 
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){
-        return  new BCryptPasswordEncoder();
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

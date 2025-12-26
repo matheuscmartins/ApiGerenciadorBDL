@@ -1,6 +1,7 @@
 package br.com.brigadadoslobos.gerenciador.services;
 
 import br.com.brigadadoslobos.gerenciador.domains.*;
+import br.com.brigadadoslobos.gerenciador.domains.enums.FeedVisibility;
 import br.com.brigadadoslobos.gerenciador.domains.enums.InfractionType;
 import br.com.brigadadoslobos.gerenciador.domains.enums.KmControl;
 import br.com.brigadadoslobos.gerenciador.domains.enums.Profile;
@@ -79,8 +80,8 @@ public class DBService {
                 "20911-333", city2);
         addressRepository.saveAll(Arrays.asList(address1, address2, address3, address4));
 
-        HeadQuarter headQuarter1 = new HeadQuarter(null, "Sede Matriz Maringá", address1);
-        HeadQuarter headQuarter2 = new HeadQuarter(null, "Sub-Sede Pres. Prudente", address4);
+        HeadQuarter headQuarter1 = new HeadQuarter(null, "Sub-Sede Maringá", address1);
+        HeadQuarter headQuarter2 = new HeadQuarter(null, "Sede Matriz Pres. Prudente", address4);
         HeadQuarter headQuarter3 = new HeadQuarter(null, "Sub-Sede Monte Alto", address3);
         headQuarterRepository.saveAll(Arrays.asList(headQuarter1, headQuarter2, headQuarter3));
 
@@ -95,14 +96,33 @@ public class DBService {
                 null, null, "member2@hotmail.com", encoder.encode("senha123"),
                 LocalDate.parse("1994-05-01"), LocalDate.parse("2015-08-28"), null, headQuarter2,
                 address3, bloodType3,"caminho da foto");
-        member2.addProfile(Profile.USUARIO);
+        member2.addProfile(Profile.COMANDO);
         Member member3 = new Member(null, "Primeiro Nome3", "Sobre Nome3", "Apelido3",
                 "00111234-9", "430.924.330-41", "090929302940-AB", "189999-534", null,
                 null, null, "member3@hotmail.com", encoder.encode("senha123"),
                 LocalDate.parse("1990-05-01"), LocalDate.parse("2015-08-28"), null, headQuarter3,
                 address2, bloodType2,"caminho da foto");
-        member2.addProfile(Profile.COMANDO);
-        memberRepository.saveAll(Arrays.asList(member1, member2, member3));
+        member3.addProfile(Profile.DIRETOR);
+        Member member4 = new Member(null, "Primeiro Nome4", "Sobre Nome4", "Apelido4",
+                "00111112-0", "009.643.920-38", "090929302941-AB", "189999-1234", null,
+                null, null, "member4@hotmail.com", encoder.encode("senha123"),
+                LocalDate.parse("1988-03-14"), LocalDate.parse("2010-06-12"), null, headQuarter1,
+                address1, bloodType1, "caminho da foto");
+        member4.addProfile(Profile.EDITOR);
+        Member member5 = new Member(null, "Primeiro Nome5", "Sobre Nome5", "Apelido5",
+                "00111113-1", "130.830.940-60", "090929302942-AB", "189999-5678", null,
+                null, null, "member5@hotmail.com", encoder.encode("senha123"),
+                LocalDate.parse("1992-09-22"), LocalDate.parse("2016-02-01"), null, headQuarter2,
+                address2, bloodType2, "caminho da foto");
+        member5.addProfile(Profile.USUARIO);
+        Member member6 = new Member(null, "Primeiro Nome6", "Sobre Nome6", "Apelido6",
+                "00111114-2", "595.006.910-27", "090929302943-AB", "189999-9101", null,
+                null, null, "member6@hotmail.com", encoder.encode("senha123"),
+                LocalDate.parse("1995-12-30"), LocalDate.parse("2018-07-15"), null, headQuarter3,
+                address3, bloodType3, "caminho da foto");
+        member6.addProfile(Profile.DESLIGADO);
+        // Salvando todos
+        memberRepository.saveAll(Arrays.asList(member1, member2, member3, member4, member5, member6));
 
         MemberPatch memberPatch1 = new MemberPatch(null, "Reunião Nacional", LocalDate.now(), member1, patch3);
         MemberPatch memberPatch2 = new MemberPatch(null, "Reuni de Diretorias", LocalDate.now(), member1, patch1);
@@ -122,14 +142,14 @@ public class DBService {
                 LocalDate.parse("2020-01-05"), member2, InfractionType.ESCRITA);
         infractionRepository.saveAll(Arrays.asList(infraction1, infraction2, infraction3, infraction4, infraction5));
 
-        Feed feed1 = new Feed(null, LocalDate.now(), LocalDate.parse("2024-08-11"), "Introdução as Estratégias",
+        Feed feed1 = new Feed(null, LocalDate.now(), LocalDate.parse("2025-08-11"), "Introdução as Estratégias",
                 "Introdução\n" +
                         "Nas últimas semanas temos acompanhado a necessidade de alinhar as estratégias comerciais da empresa com as metas do próximo trimestre. A concorrência está cada vez mais agressiva, e precisamos definir quais serão os diferenciais que vamos oferecer. Uma comunicação clara entre os times de vendas, marketing e operações é essencial para evitar retrabalhos e garantir que os prazos sejam cumpridos. O objetivo da reunião de hoje é justamente consolidar esse alinhamento, identificando pontos críticos e oportunidades que possam ser exploradas.\n" +
                         "\n" +
                         "Para exemplificar, vamos analisar o lançamento do novo produto que está programado para o próximo mês. Precisamos verificar se todos os materiais de divulgação estarão prontos, se a equipe de suporte recebeu treinamento adequado e se a área de logística consegue atender a demanda estimada. Essa checagem é fundamental para evitar gargalos no processo e assegurar que a experiência do cliente seja positiva.\n" +
                         "\n" +
                         "Fim:"
-                , headQuarter1);
+                , headQuarter1, FeedVisibility.PUBLICA);
         Feed feed2 = new Feed(null, LocalDate.now(), LocalDate.parse("2025-01-11"), "Metas de Vendas",
                 "Os tópicos discutidos na reunião podem envolver desde a definição de metas de vendas, revisão do desempenho das equipes, análise de resultados financeiros, até o planejamento de ações estratégicas para o próximo trimestre. Além disso, é comum que sejam abordadas demandas específicas trazidas pelos gestores de cada área, garantindo que todas as frentes da organização estejam alinhadas.\n" +
                         "\n" +
@@ -141,12 +161,12 @@ public class DBService {
                         "\n" +
                         "O que são reuniões estratégicas?\n" +
                         "No ambiente corporativo, reuniões estratégicas são encontros voltados para alinhar objetivos de médio e longo prazo. Elas não tratam apenas de tarefas operacionais do dia a dia, mas buscam identificar oportunidades de crescimento, revisar processos e antecipar riscos. Independentemente do porte da empresa, esse tipo de reunião é indispensável para manter a competitividade e assegurar que todos estejam trabalhando em direção aos mesmos objetivos."
-                , headQuarter2);
-        Feed feed3 = new Feed(null, LocalDate.now(), LocalDate.parse("2024-10-10"), "Reuniões de Negócios",
+                , headQuarter3, FeedVisibility.RESTRITA);
+        Feed feed3 = new Feed(null, LocalDate.now(), LocalDate.parse("2025-10-10"), "Reuniões de Negócios",
                 "Como conduzir reuniões de negócios\n" +
                         "A realização de reuniões empresariais pode ocorrer de diversas maneiras. Elas podem ser presenciais, virtuais ou híbridas, dependendo da necessidade e da disponibilidade das equipes. Por serem uma prática amplamente utilizada no ambiente corporativo, também existem formatos mais rápidos e objetivos de condução, como reuniões de alinhamento diárias ou semanais, que permitem acelerar a tomada de decisão, como pode ser observado no exemplo apresentado na Agenda 1."
 
-                , headQuarter2);
+                , headQuarter2, FeedVisibility.PUBLICA);
         feedRepository.saveAll(Arrays.asList(feed1, feed2, feed3));
 
         TravelControl travelControl1 = new TravelControl(null,LocalDate.parse("2024-08-11"),200.0,

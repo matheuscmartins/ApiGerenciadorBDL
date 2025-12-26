@@ -1,11 +1,99 @@
-﻿insert into blood_type (description) values ('A-'), ('B+'), ('B-'), ('AB+'), ('AB-'), ('O+');
+﻿insert into blood_type (description) values ('A-'), ('B+'), ('AB+'), ('AB-'), ('O+');
 insert into country (name) values ('Portugal'), ('Inglaterra');
 insert into uf (acronym , name , country_id ) values ('RO', 'Rondonia', 1), ('AC', 'Acre', 1), ('AM', 'Amazonas', 1), ('RJ', 'Rio de Janeiro', 1), ('EP', 'Exterior Portugal', 2),
  ('EI', 'Exterior Ingraterra', 3);
-INSERT INTO CITY (NAME,UF_ID) VALUES ('São Paulo',1), ('Monte Alto',1), ('Curitiba',2), ('Rio de Janeiro',6),('Londres',8),('Lisboa',7),('Londrina',2);
-INSERT INTO CITY (NAME,UF_ID) VALUES ('Rio de Janeiro',6), ('Parati',6);
+INSERT INTO CITY (NAME,UF_ID) VALUES ('São Paulo',1), ('Presidente Epitacio',1), ('Curitiba',2), ('Rio de Janeiro',6),('Londres',8),('Lisboa',7),('Londrina',2);
 insert into patch (name) values  ('LSSL'),('Nomade') ,('Ubuntu');
-insert into  ADDRESS ( adress_complement ,logradouro, number, post_code, city_id) values
+insert into ADDRESS ( adress_complement ,logradouro, number, post_code, city_id) values
  (null, 'Rua Maria', '100', '19111-300', 1), (null, 'Av Brasil', '666', '19541-021', 1), 
 (null, 'Rua José', '84', '19189-021', 3), (null, 'Rua João', '58', '16941-021', 2), (null, 'Travessa das Rosas', '41', '19111-666', 4);
-insert into head_quarter (description, address_id ) values ('Sub-Sede Monte alto', 2),  ('Sub-Sede Mato Grosso', 4); 
+
+-- Membro 1
+INSERT INTO TRAVEL_CONTROL (ARRIVAL_LOCATION, DEPARTURE_LOCATION, DESCRIPTION, KM, KM_CONTROL, TRAVEL_DATE, MEMBER_ID) VALUES
+('São Paulo - SP', 'Maringá - PR', 'Viagem Comum', 310, 0, '2025-01-15', 1),
+('Curitiba - PR', 'Maringá - PR', 'Viagem Comum', 540, 1, '2025-02-10', 1),
+('Londrina - PR', 'Maringá - PR', 'Viagem Comum', 280, 0, '2025-03-08', 1),
+('Presidente Prudente - SP', 'Maringá - PR', 'Viagem Comum', 200, 1, '2025-04-20', 1),
+('Assis - SP', 'Maringá - PR', 'Viagem Comum', 390, 0, '2025-05-18', 1),
+('Ourinhos - SP', 'Maringá - PR', 'Viagem Comum', 170, 1, '2025-06-11', 1);
+
+-- Membro 2
+INSERT INTO TRAVEL_CONTROL (ARRIVAL_LOCATION, DEPARTURE_LOCATION, DESCRIPTION, KM, KM_CONTROL, TRAVEL_DATE, MEMBER_ID) VALUES
+('Curitiba - PR', 'Presidente Prudente - SP', 'Viagem Comum', 540, 0, '2025-01-22', 2),
+('Joinville - SC', 'Presidente Prudente - SP', 'Viagem Comum', 690, 1, '2025-02-14', 2),
+('Florianópolis - SC', 'Presidente Prudente - SP', 'Viagem Comum', 820, 0, '2025-03-25', 2),
+('Londrina - PR', 'Presidente Prudente - SP', 'Viagem Comum', 280, 1, '2025-04-16', 2),
+('Registro - SP', 'Presidente Prudente - SP', 'Viagem Comum', 455, 0, '2025-05-12', 2),
+('Santos - SP', 'Presidente Prudente - SP', 'Viagem Comum', 600, 1, '2025-06-29', 2);
+
+-- Membro 3
+INSERT INTO TRAVEL_CONTROL (ARRIVAL_LOCATION, DEPARTURE_LOCATION, DESCRIPTION, KM, KM_CONTROL, TRAVEL_DATE, MEMBER_ID) VALUES
+('Campinas - SP', 'Monte Alto - SP', 'Viagem Comum', 430, 0, '2025-01-05', 3),
+('Ribeirão Preto - SP', 'Monte Alto - SP', 'Viagem Comum', 380, 1, '2025-02-17', 3),
+('São José do Rio Preto - SP', 'Monte Alto - SP', 'Viagem Comum', 240, 0, '2025-03-19', 3),
+('Bauru - SP', 'Monte Alto - SP', 'Viagem Comum', 175, 1, '2025-04-27', 3),
+('Curitiba - PR', 'Monte Alto - SP', 'Viagem Comum', 540, 0, '2025-05-10', 3),
+('Uberaba - MG', 'Monte Alto - SP', 'Viagem Comum', 520, 1, '2025-06-21', 3);
+
+-- Membro 4
+INSERT INTO TRAVEL_CONTROL (ARRIVAL_LOCATION, DEPARTURE_LOCATION, DESCRIPTION, KM, KM_CONTROL, TRAVEL_DATE, MEMBER_ID) VALUES
+('São Paulo - SP', 'Maringá - PR', 'Viagem Comum', 310, 0, '2025-01-09', 4),
+('Santos - SP', 'Maringá - PR', 'Viagem Comum', 600, 1, '2025-02-27', 4),
+('Sorocaba - SP', 'Maringá - PR', 'Viagem Comum', 290, 0, '2025-03-12', 4),
+('Marília - SP', 'Maringá - PR', 'Viagem Comum', 170, 1, '2025-04-18', 4),
+('Curitiba - PR', 'Maringá - PR', 'Viagem Comum', 540, 0, '2025-05-23', 4),
+('Florianópolis - SC', 'Maringá - PR', 'Viagem Comum', 820, 1, '2025-06-06', 4);
+
+-- Membro 5
+INSERT INTO TRAVEL_CONTROL (ARRIVAL_LOCATION, DEPARTURE_LOCATION, DESCRIPTION, KM, KM_CONTROL, TRAVEL_DATE, MEMBER_ID) VALUES
+('Londrina - PR', 'Presidente Prudente - SP', 'Viagem Comum', 280, 0, '2025-01-03', 5),
+('Maringá - PR', 'Presidente Prudente - SP', 'Viagem Comum', 200, 1, '2025-02-15', 5),
+('Cascavel - PR', 'Presidente Prudente - SP', 'Viagem Comum', 460, 0, '2025-03-09', 5),
+('Ponta Grossa - PR', 'Presidente Prudente - SP', 'Viagem Comum', 520, 1, '2025-04-22', 5),
+('Chapecó - SC', 'Presidente Prudente - SP', 'Viagem Comum', 780, 0, '2025-05-19', 5),
+('Joaçaba - SC', 'Presidente Prudente - SP', 'Viagem Comum', 730, 1, '2025-06-28', 5);
+
+-- Membro 6
+INSERT INTO TRAVEL_CONTROL (ARRIVAL_LOCATION, DEPARTURE_LOCATION, DESCRIPTION, KM, KM_CONTROL, TRAVEL_DATE, MEMBER_ID) VALUES
+('São Paulo - SP', 'Monte Alto - SP', 'Viagem Comum', 310, 0, '2025-01-14', 6),
+('Araçatuba - SP', 'Monte Alto - SP', 'Viagem Comum', 160, 1, '2025-02-08', 6),
+('Bauru - SP', 'Monte Alto - SP', 'Viagem Comum', 175, 0, '2025-03-30', 6),
+('Londrina - PR', 'Monte Alto - SP', 'Viagem Comum', 280, 1, '2025-04-07', 6),
+('Curitiba - PR', 'Monte Alto - SP', 'Viagem Comum', 540, 0, '2025-05-25', 6),
+('Joinville - SC', 'Monte Alto - SP', 'Viagem Comum', 690, 1, '2025-06-15', 6);
+
+----------------------------------------------------
+-- HEAD_QUARTER_ID = 1
+----------------------------------------------------
+INSERT INTO FEED (FEED_VISIBILITY, POST_DATE, REUNION_DATE, TEXT, TITLE, HEAD_QUARTER_ID) VALUES
+(0, '2025-01-12', '2025-01-20', 'Resumo mensal de planejamento e metas operacionais.', 'Revisão Operacional', 1),
+(0, '2025-02-05', '2025-02-10', 'Alinhamento interno sobre novos processos de atendimento.', 'Alinhamento de Processos', 1),
+(0, '2025-03-18', '2025-03-25', 'Discussão sobre ajustes estratégicos no trimestre.', 'Ajustes Estratégicos', 1),
+
+(1, '2025-04-02', '2025-04-10', 'Revisão da comunicação interna e próximos eventos.', 'Comunicado Interno', 1),
+(1, '2025-05-14', '2025-05-21', 'Informes gerais sobre desempenho e oportunidades.', 'Atualização Geral', 1),
+(1, '2025-06-23', '2025-06-30', 'Reunião pautada em melhorias contínuas do setor.', 'Melhorias do Setor', 1);
+
+----------------------------------------------------
+-- HEAD_QUARTER_ID = 2
+----------------------------------------------------
+INSERT INTO FEED (FEED_VISIBILITY, POST_DATE, REUNION_DATE, TEXT, TITLE, HEAD_QUARTER_ID) VALUES
+(0, '2025-01-08', '2025-01-15', 'Avaliação inicial do ano e análise de indicadores.', 'Abertura do Ano', 2),
+(0, '2025-02-19', '2025-02-27', 'Conferência de metas e reestruturações necessárias.', 'Avaliação de Metas', 2),
+(0, '2025-03-10', '2025-03-18', 'Planejamento e revisão de processos internos.', 'Planejamento Interno', 2),
+
+(1, '2025-04-06', '2025-04-14', 'Informações gerais sobre desempenho da equipe.', 'Informativo da Equipe', 2),
+(1, '2025-05-11', '2025-05-19', 'Discussões sobre novos projetos e cronogramas.', 'Novos Projetos', 2),
+(1, '2025-06-26', '2025-07-03', 'Análise de resultados do semestre.', 'Resultados Semestrais', 2);
+
+----------------------------------------------------
+-- HEAD_QUARTER_ID = 3
+----------------------------------------------------
+INSERT INTO FEED (FEED_VISIBILITY, POST_DATE, REUNION_DATE, TEXT, TITLE, HEAD_QUARTER_ID) VALUES
+(0, '2025-01-17', '2025-01-25', 'Revisão dos procedimentos e validação das rotinas.', 'Revisão de Rotinas', 3),
+(0, '2025-02-09', '2025-02-16', 'Ajuste de operação e reavaliação estratégica.', 'Reavaliação Operacional', 3),
+(0, '2025-03-27', '2025-04-04', 'Reunião destinada a melhorias de execução.', 'Reunião de Execução', 3),
+
+(1, '2025-04-15', '2025-04-22', 'Atualizações gerais e informes administrativos.', 'Comunicado Administrativo', 3),
+(1, '2025-05-20', '2025-05-27', 'Alinhamento de cronogramas e próximas entregas.', 'Cronograma de Entregas', 3),
+(1, '2025-06-12', '2025-06-20', 'Feedback geral do semestre e próximos passos.', 'Feedback Semestral', 3);

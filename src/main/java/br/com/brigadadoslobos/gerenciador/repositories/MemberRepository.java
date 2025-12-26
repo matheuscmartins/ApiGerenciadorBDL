@@ -4,6 +4,8 @@ import br.com.brigadadoslobos.gerenciador.domains.Member;
 import br.com.brigadadoslobos.gerenciador.domains.dtos.summarys.MemberSummaryDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import java.util.List;
 
 import java.util.Optional;
@@ -17,4 +19,11 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
             "FROM Member m " +
             "LEFT JOIN m.headQuarter h")
     List<MemberSummaryDTO> findAllSummary();
+
+    @Query("SELECT new br.com.brigadadoslobos.gerenciador.domains.dtos.summarys.MemberSummaryDTO(" +
+            "m.id, m.firstName, m.lastName, m.nickName, h.id, h.description) " +
+            "FROM Member m " +
+            "LEFT JOIN m.headQuarter h "+
+            "where h.id = :headQuarterid")
+    Optional <List<MemberSummaryDTO>> findSummariesByHeadQuarterId(@Param("headQuarterid") Integer headQuarterid);
 }

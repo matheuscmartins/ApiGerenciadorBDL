@@ -80,10 +80,9 @@ public class FeedService {
 
     // Por sede e período (summary) - converter strings "dd/MM/yyyy" -> LocalDate
     public List<FeedSummaryDTO> FindSummariesByHeadQuarterIdAndPeriod(Integer id, String begin, String end) {
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate b = LocalDate.parse(begin, fmt);
-        LocalDate e = LocalDate.parse(end, fmt);
-        return repository.findSummariesByHeadQuarterIdAndPeriod(id, b, e);
+        Optional<List<FeedSummaryDTO>> listOptional = repository.findSummariesByHeadQuarterIdAndPeriod(id, begin, end);
+        return listOptional.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! pra essa sede id: "
+                + id +" ou nesse periodo: " + begin +" á "+ end));
     }
 
     // Por período (summary)

@@ -20,4 +20,23 @@ public interface InfractionRepository extends JpaRepository<Infraction, Integer>
             "join i.member m " +
             "left join m.headQuarter h")
     List<InfractionSummaryDTO> findAllSummaries();
+
+    @Query("select new br.com.brigadadoslobos.gerenciador.domains.dtos.summarys.InfractionSummaryDTO(" +
+            "i.id, i.infractionDate, i.infractionType, " +
+            "m.id, m.firstName, m.lastName, m.nickName, " +
+            "h.id, h.description) " +
+            "from Infraction i " +
+            "join i.member m " +
+            "left join m.headQuarter h "+
+            "where h.id = :headQuarterId")
+    Optional <List<InfractionSummaryDTO> >findSummariesByHeadQuarterId(@Param("headQuarterId") Integer headQuarterid);
+    @Query("select new br.com.brigadadoslobos.gerenciador.domains.dtos.summarys.InfractionSummaryDTO(" +
+            "i.id, i.infractionDate, i.infractionType, " +
+            "m.id, m.firstName, m.lastName, m.nickName, " +
+            "h.id, h.description) " +
+            "from Infraction i " +
+            "join i.member m " +
+            "left join m.headQuarter h "+
+            "where m.id = :memberId")
+    Optional <List<InfractionSummaryDTO> >findSummariesByMemberId(@Param("memberId") Integer memberId);
 }

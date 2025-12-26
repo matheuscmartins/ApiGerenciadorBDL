@@ -16,7 +16,6 @@ public class RoleDutyService {
     @Autowired
     private RoleDutyRepository repository;
 
-
     public RoleDuty findById(Integer id){
         Optional<RoleDuty> obj = repository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+ id));

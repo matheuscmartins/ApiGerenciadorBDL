@@ -8,10 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/membros")
@@ -32,7 +35,6 @@ public class MemberResource {
         return ResponseEntity.ok().body(listDTO);
     }
     */
-
     @GetMapping
     public ResponseEntity<List<MemberSummaryDTO>> findAll(){
         List<MemberSummaryDTO> listDTO = service.findAllSummary();
@@ -57,4 +59,31 @@ public class MemberResource {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }*/
+   @GetMapping(value = "/sede/{id}")
+   public ResponseEntity<List<MemberSummaryDTO>> findByHeadQuarterId(@PathVariable Integer id) {
+       List<MemberSummaryDTO> listDTO = service.findSummariesByHeadQuarterId(id);
+       return ResponseEntity.ok().body(listDTO);
+   }
+    @PostMapping(value = "/{id}/upload-foto")
+    public ResponseEntity<Map<String, String>> uploadFotoPerfil(
+            @PathVariable Integer id,
+            @RequestParam("file") MultipartFile file) {
+
+        try {
+            // Chama o serviço que processa e salva a imagem
+            String imagePath = service.uploadProfileImage(id, file);
+
+            // Retorna o caminho da imagem
+            Map<String, String> response = new HashMap<>();
+            response.put("imagePath", imagePath);
+            response.put("message", "Foto atualizada com sucesso!");
+
+            return ResponseEntity.ok(response);
+
+        } catch (Exception e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", e.getMessage());
+            return ResponseEntity.badRequest().body(error);
+        }
+    }
 }

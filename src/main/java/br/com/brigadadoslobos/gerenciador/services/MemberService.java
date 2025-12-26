@@ -9,7 +9,16 @@ import br.com.brigadadoslobos.gerenciador.services.exceptions.ObjectNotFoundExce
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +28,11 @@ public class MemberService {
     private MemberRepository repository;
     @Autowired
     private BCryptPasswordEncoder encoder;
-
+    private static final String UPLOAD_DIR = "uploads/profiles/";
+    private static final List<String> ALLOWED_TYPES = Arrays.asList(
+            "image/jpeg", "image/jpg", "image/png", "image/gif", "image/webp"
+    );
+    private static final long MAX_SIZE = 5 * 1024 * 1024;
     public Member findById(Integer id){
         Optional<Member> obj = repository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+ id));
@@ -67,5 +80,83 @@ public class MemberService {
             throw new DataIntegrityViolationException("E-mail já cadastrado no sistema!");
         }
     }
+    public List<MemberSummaryDTO> findSummariesByHeadQuarterId(Integer id) {
+        Optional <List<MemberSummaryDTO>> listOptional = repository.findSummariesByHeadQuarterId(id);
+        return listOptional.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+ id));
+    }
+    public String uploadProfileImage(Integer memberId, MultipartFile file) throws IOException {
 
+        // 1. Validar se o membro existe
+        Optional<Member> memberOpt = repository.findById(memberId);
+        if (!memberOpt.isPresent()) {
+            throw new IllegalArgumentException("Membro não encontrado!");
+        }
+        Member member = memberOpt.get();
+
+        // 2. Validar tipo de arquivo
+        String contentType = file.getContentType();
+        if (!ALLOWED_TYPES.contains(contentType)) {
+            throw new IllegalArgumentException(
+                    "Tipo de arquivo não permitido! Use: JPG, PNG, GIF ou WEBP"
+            );
+        }
+
+        // 3. Validar tamanho
+        if (file.getSize() > MAX_SIZE) {
+            throw new IllegalArgumentException(
+                    "Arquivo muito grande! Tamanho máximo: 5MB"
+            );
+        }
+
+        // 4. Gerar nome único para o arquivo
+        String timestamp = LocalDateTime.now()
+                .format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+        String extension = getFileExtension(file.getOriginalFilename());
+        String fileName = memberId + "_" + timestamp + extension;
+
+        // 5. Criar diretório se não existir
+        Path uploadPath = Paths.get(UPLOAD_DIR);
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        // 6. Deletar foto antiga se existir
+        if (member.getImagePath() != null && !member.getImagePath().isEmpty()) {
+            try {
+                Path oldFile = Paths.get(member.getImagePath());
+                Files.deleteIfExists(oldFile);
+            } catch (IOException e) {
+                // Log do erro, mas não para o processo
+                System.err.println("Erro ao deletar foto antiga: " + e.getMessage());
+            }
+        }
+
+        // 7. Salvar arquivo no servidor
+        Path filePath = uploadPath.resolve(fileName);
+        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+        // 8. Gerar caminho relativo para salvar no banco
+        String relativePath = UPLOAD_DIR + fileName;
+
+        // 9. Atualizar caminho no banco de dados
+        member.setImagePath(relativePath);
+        repository.save(member);
+
+        // 10. Retornar caminho da imagem
+        return relativePath;
+    }
+
+    /**
+     * Extrai extensão do arquivo
+     */
+    private String getFileExtension(String filename) {
+        if (filename == null || filename.isEmpty()) {
+            return ".jpg";
+        }
+        int lastDot = filename.lastIndexOf('.');
+        if (lastDot == -1) {
+            return ".jpg";
+        }
+        return filename.substring(lastDot);
+    }
 }

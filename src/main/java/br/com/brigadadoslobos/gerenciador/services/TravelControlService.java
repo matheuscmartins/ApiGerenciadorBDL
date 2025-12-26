@@ -2,11 +2,14 @@ package br.com.brigadadoslobos.gerenciador.services;
 
 import br.com.brigadadoslobos.gerenciador.domains.TravelControl;
 import br.com.brigadadoslobos.gerenciador.domains.dtos.TravelControlDTO;
+import br.com.brigadadoslobos.gerenciador.domains.dtos.summarys.TravelControlSummaryDTO;
 import br.com.brigadadoslobos.gerenciador.repositories.TravelControlRepository;
 import br.com.brigadadoslobos.gerenciador.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,9 +23,8 @@ public class TravelControlService {
         Optional<TravelControl> obj = repository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id));
     }
-
-    public List<TravelControl> findAll() {
-        return repository.findAll();
+    public List<TravelControlSummaryDTO> findAll() {
+        return repository.findAllSummaries();
     }
 
     public TravelControl create(TravelControlDTO objDTO) {
@@ -50,13 +52,25 @@ public class TravelControlService {
         repository.save(obj);
     }
 
-    public List<TravelControl> findByMemberId(Integer id) {
-        Optional<List<TravelControl>> listOptional = repository.findByMemberId(id);
-        return listOptional.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! MembroId: " + id));
+    public List<TravelControlSummaryDTO> findByMemberIdAndPeriod(Integer id, String begin, String end) {
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        Optional<List<TravelControlSummaryDTO>> listOptional = repository.findByMemberIdAndPeriod(id, LocalDate.parse(begin, fmt),
+                LocalDate.parse(end, fmt));
+        return listOptional.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! MembroId: " + id
+        +" nesse periodo:"  + begin + " á " + end));
     }
 
-    public List<TravelControl> FindbyHeadQuarterIdAndPeriod(Integer id, String begin, String end) {
-        Optional<List<TravelControl>> listOptional = repository.FindbyHeadQuarterIdAndPeriod(id, begin, end);
+    public List<TravelControlSummaryDTO> FindbyHeadQuarterIdAndPeriod(Integer id, String begin, String end) {
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        Optional<List<TravelControlSummaryDTO>> listOptional = repository.FindbyHeadQuarterIdAndPeriod(id,LocalDate.parse(begin, fmt),
+                LocalDate.parse(end, fmt));
+        return listOptional.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! nesse periodo: "
+                + begin + " á " + end));
+    }
+    public List<TravelControlSummaryDTO> FindSummariesByPeriod(String begin, String end) {
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        Optional<List<TravelControlSummaryDTO>> listOptional = repository.FindSummariesByPeriod(LocalDate.parse(begin, fmt),
+                LocalDate.parse(end, fmt));
         return listOptional.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! nesse periodo: "
                 + begin + " á " + end));
     }

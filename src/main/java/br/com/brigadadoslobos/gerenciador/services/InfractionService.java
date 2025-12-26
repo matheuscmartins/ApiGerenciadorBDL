@@ -28,6 +28,7 @@ public class InfractionService {
 
     // Novo: obter summaries para o front
     public List<InfractionSummaryDTO> findAllSummaries() {
+
         return repository.findAllSummaries();
     }
 
@@ -56,6 +57,14 @@ public class InfractionService {
 
     public List<Infraction> findByMemberId(Integer id) {
         Optional<List<Infraction>> listOptional = repository.findByMemberId(id);
+        return listOptional.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+ id));
+    }
+    public List<InfractionSummaryDTO> findSummariesByHeadQuarterId(Integer id) {
+          Optional <List<InfractionSummaryDTO>> listOptional = repository.findSummariesByHeadQuarterId(id);
+        return listOptional.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+ id));
+    }
+    public List<InfractionSummaryDTO> findSummariesByMemberId(Integer id) {
+        Optional <List<InfractionSummaryDTO>> listOptional = repository.findSummariesByMemberId(id);
         return listOptional.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+ id));
     }
 }

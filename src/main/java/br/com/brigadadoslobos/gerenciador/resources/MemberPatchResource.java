@@ -59,4 +59,10 @@ public class MemberPatchResource {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping(value = "/membro/{memberId}")
+    public ResponseEntity<List<MemberPatchSummaryDTO>> findByMemberId(@PathVariable Integer memberId){
+        List<MemberPatchSummaryDTO> listDTO = service.findByMemberId(memberId);
+        return ResponseEntity.ok().body(listDTO);
+    }
 }

@@ -1,6 +1,7 @@
 package br.com.brigadadoslobos.gerenciador.domains;
 
 import br.com.brigadadoslobos.gerenciador.domains.dtos.FeedDTO;
+import br.com.brigadadoslobos.gerenciador.domains.enums.FeedVisibility;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
@@ -24,16 +25,20 @@ public class Feed implements Serializable {
     @JoinColumn(name = "headQuarter_id")
     private HeadQuarter headQuarter;
 
+    @Column(nullable = false)
+    private FeedVisibility feedVisibility;
     public Feed() {
     }
 
-    public Feed(Integer id, LocalDate postDate, LocalDate reunionDate, String title, String text, HeadQuarter headQuarter) {
+    public Feed(Integer id, LocalDate postDate, LocalDate reunionDate, String title, String text,
+                HeadQuarter headQuarter, FeedVisibility feedVisibility) {
         this.id = id;
         this.postDate = postDate;
         this.reunionDate = reunionDate;
         this.title = title;
         this.text = text;
         this.headQuarter = headQuarter;
+        this.feedVisibility =feedVisibility;
     }
     public Feed(FeedDTO obj) {
         this.id = obj.getId();
@@ -42,6 +47,7 @@ public class Feed implements Serializable {
         this.title = obj.getTitle();
         this.text = obj.getText();
         this.headQuarter = obj.getHeadQuarter();
+        this.feedVisibility = obj.getFeedVisibility();
     }
     public Integer getId() {
         return id;
@@ -89,5 +95,13 @@ public class Feed implements Serializable {
 
     public void setHeadQuarter(HeadQuarter headQuarter) {
         this.headQuarter = headQuarter;
+    }
+
+    public FeedVisibility getFeedVisibility() {
+        return feedVisibility;
+    }
+
+    public void addFeedVisibility(FeedVisibility feedVisibility) {
+        this.feedVisibility = FeedVisibility.valueOf(feedVisibility.getId());
     }
 }

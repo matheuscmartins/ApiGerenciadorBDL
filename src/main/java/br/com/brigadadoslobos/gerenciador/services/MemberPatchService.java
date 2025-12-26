@@ -58,4 +58,7 @@ public class MemberPatchService {
         obj.setMember(null);
         repository.save(obj);
     }
+    public List<MemberPatchSummaryDTO> findByMemberId(Integer memberId) {
+        return repository.findSummariesByMemberId(memberId);
+    }
 }

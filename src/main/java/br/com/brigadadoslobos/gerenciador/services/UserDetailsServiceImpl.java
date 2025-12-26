@@ -19,9 +19,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<Member> user = repository.findByEmail(email);
-        if (user.isPresent()){
-            return new UserSS(user.get().getId(), user.get().getEmail(), user.get().getPassword(),
-            user.get().getProfiles());
+        if (user.isPresent()) {
+            Member m = user.get();
+            Integer hqId = (m.getHeadQuarter() != null) ? m.getHeadQuarter().getId() : null;
+
+            return new UserSS(
+                    m.getId(),
+                    m.getEmail(),
+                    m.getPassword(),
+                    hqId,
+                    m.getProfiles()
+            );
         }
         throw new UsernameNotFoundException(email);
     }

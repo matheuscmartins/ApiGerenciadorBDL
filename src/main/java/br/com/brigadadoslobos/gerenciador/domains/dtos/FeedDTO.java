@@ -2,6 +2,7 @@ package br.com.brigadadoslobos.gerenciador.domains.dtos;
 
 import br.com.brigadadoslobos.gerenciador.domains.Feed;
 import br.com.brigadadoslobos.gerenciador.domains.HeadQuarter;
+import br.com.brigadadoslobos.gerenciador.domains.enums.FeedVisibility;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.Column;
@@ -24,6 +25,8 @@ public class FeedDTO implements Serializable {
     private String text;
     @NotNull(message = "O campo Sede é requerido")
     private HeadQuarter headQuarter;
+    @Column(nullable = false)
+    private FeedVisibility feedVisibility;
     public FeedDTO(){}
 
     public FeedDTO(Feed obj) {
@@ -33,6 +36,7 @@ public class FeedDTO implements Serializable {
         this.title = obj.getTitle();
         this.text = obj.getText();
         this.headQuarter = obj.getHeadQuarter();
+        this.feedVisibility = obj.getFeedVisibility();
     }
 
     public Integer getId() {
@@ -81,5 +85,12 @@ public class FeedDTO implements Serializable {
 
     public void setHeadQuarter(HeadQuarter headQuarter) {
         this.headQuarter = headQuarter;
+    }
+    public FeedVisibility getFeedVisibility() {
+        return feedVisibility;
+    }
+
+    public void setFeedVisibility(FeedVisibility feedVisibility) {
+        this.feedVisibility = feedVisibility;
     }
 }
