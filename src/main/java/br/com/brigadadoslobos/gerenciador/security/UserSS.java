@@ -66,6 +66,8 @@ public class UserSS implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        // Verifica se o usuário NÃO tem o perfil DESLIGADO
+        return authorities.stream()
+                .noneMatch(auth -> auth.getAuthority().equals("ROLE_DESLIGADO"));
     }
 }

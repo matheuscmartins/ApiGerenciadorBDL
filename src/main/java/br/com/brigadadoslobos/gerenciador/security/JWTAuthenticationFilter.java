@@ -37,9 +37,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                     new UsernamePasswordAuthenticationToken(creds.getEmail(), creds.getPassword(), new ArrayList<>());
             Authentication authentication = authenticationManager.authenticate(authenticationToken);
             return authentication;
-        } catch (Exception e) {
+        } catch (IOException e) {
+            // Captura apenas exceções de I/O ao ler o request
             throw new RuntimeException(e);
         }
+        // AuthenticationException (incluindo DisabledException) será propagada automaticamente
     }
 
     /*
@@ -89,16 +91,27 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                               AuthenticationException failed) throws IOException, ServletException {
         response.setStatus(401);
         response.setContentType("application/json");
-        response.getWriter().append(json());
+        response.setCharacterEncoding("UTF-8");
+
+        String message = "Email ou senha inválidos";
+
+        // Verifica o tipo específico de exceção
+        if (failed instanceof org.springframework.security.authentication.DisabledException) {
+            message = "Usuário desligado. Entre em contato com o administrador";
+        } else if (failed instanceof org.springframework.security.authentication.BadCredentialsException) {
+            message = "Email ou senha inválidos";
+        }
+
+        response.getWriter().append(json(message));
     }
 
-    private CharSequence json() {
+    private String json(String message) {
         long date = new Date().getTime();
         return "{"
                 + "\"timestamp\": " + date + ", "
                 + "\"status\": 401, "
                 + "\"error\": \"Não autorizado\", "
-                + "\"message\": \"Email ou senha inválidos\", "
+                + "\"message\": \"" + message + "\", "
                 + "\"path\": \"/login\"}";
     }
 }
