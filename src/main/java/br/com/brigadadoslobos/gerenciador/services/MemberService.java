@@ -159,4 +159,36 @@ public class MemberService {
         }
         return filename.substring(lastDot);
     }
+    /**
+     * Altera a senha do usuário
+     */
+    public void updatePassword(Integer memberId, String oldPassword, String newPassword) {
+        // 1. Buscar membro
+        Member member = findById(memberId);
+
+        // 2. Verificar se a senha atual está correta (COMPARAR HASH)
+        if (!encoder.matches(oldPassword, member.getPassword())) {
+            throw new IllegalArgumentException("Senha atual incorreta!");
+        }
+
+        // 3. Validar nova senha
+        if (newPassword == null || newPassword.trim().isEmpty()) {
+            throw new IllegalArgumentException("Nova senha não pode ser vazia!");
+        }
+
+        if (newPassword.length() < 6) {
+            throw new IllegalArgumentException("Nova senha deve ter no mínimo 6 caracteres!");
+        }
+
+        // 4. Verificar se a nova senha é diferente da atual
+        if (encoder.matches(newPassword, member.getPassword())) {
+            throw new IllegalArgumentException("Nova senha deve ser diferente da senha atual!");
+        }
+
+        // 5. Atualizar senha (com criptografia BCrypt)
+        member.setPassword(encoder.encode(newPassword));
+        repository.save(member);
+
+        System.out.println("Senha alterada com sucesso para o membro ID: " + memberId);
+    }
 }

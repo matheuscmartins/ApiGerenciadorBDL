@@ -86,4 +86,52 @@ public class MemberResource {
             return ResponseEntity.badRequest().body(error);
         }
     }
+    /**
+     * Altera a senha do usuário
+     * Endpoint: PUT /membros/{id}/alterar-senha
+     */
+    @PutMapping(value = "/{id}/alterar-senha")
+    public ResponseEntity<Map<String, String>> updatePassword(
+            @PathVariable Integer id,
+            @RequestBody Map<String, String> passwords) {
+
+        try {
+            String oldPassword = passwords.get("oldPassword");
+            String newPassword = passwords.get("newPassword");
+
+            // Validação básica
+            if (oldPassword == null || oldPassword.isEmpty()) {
+                Map<String, String> error = new HashMap<>();
+                error.put("error", "Senha atual é obrigatória!");
+                return ResponseEntity.badRequest().body(error);
+            }
+
+            if (newPassword == null || newPassword.isEmpty()) {
+                Map<String, String> error = new HashMap<>();
+                error.put("error", "Nova senha é obrigatória!");
+                return ResponseEntity.badRequest().body(error);
+            }
+
+            // Chama o serviço
+            service.updatePassword(id, oldPassword, newPassword);
+
+            // Retorna sucesso
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Senha alterada com sucesso!");
+
+            return ResponseEntity.ok(response);
+
+        } catch (IllegalArgumentException e) {
+            // Erro de validação (senha incorreta, etc)
+            Map<String, String> error = new HashMap<>();
+            error.put("error", e.getMessage());
+            return ResponseEntity.status(400).body(error);
+
+        } catch (Exception e) {
+            // Erro genérico
+            Map<String, String> error = new HashMap<>();
+            error.put("error", "Erro ao alterar senha: " + e.getMessage());
+            return ResponseEntity.status(500).body(error);
+        }
+    }
 }
