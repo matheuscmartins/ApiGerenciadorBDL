@@ -68,16 +68,15 @@ public class SimpleCorsFilter implements Filter {
             return false;
         }
 
-        // 🔐 PRODUÇÃO: Liste APENAS os domínios autorizados
+        // 🔐 PRODUÇÃO: Domínios autorizados
         String[] allowedOrigins = {
-                "https://seudominio.com",
-                "https://www.seudominio.com",
-                "https://app.seudominio.com"
-                // Adicione outros domínios conforme necessário
+                "https://seu-app.vercel.app",           // Vercel (você vai pegar a URL depois)
+                "https://seu-dominio-custom.com",        // Se tiver domínio próprio
+                "http://localhost:4200"                  // Para testar localmente
         };
 
         for (String allowed : allowedOrigins) {
-            if (origin.equals(allowed)) {
+            if (origin.equals(allowed) || origin.startsWith(allowed)) {
                 return true;
             }
         }
