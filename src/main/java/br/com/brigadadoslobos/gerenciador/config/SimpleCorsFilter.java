@@ -70,8 +70,7 @@ public class SimpleCorsFilter implements Filter {
 
         // 🔐 PRODUÇÃO: Domínios autorizados
         String[] allowedOrigins = {
-                "https://seu-app.vercel.app",           // Vercel (você vai pegar a URL depois)
-                "https://seu-dominio-custom.com",        // Se tiver domínio próprio
+                "https://gerenciadobdl243.netlify.app",
                 "http://localhost:4200"                  // Para testar localmente
         };
 
