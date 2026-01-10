@@ -17,13 +17,20 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
     @Query("SELECT new br.com.brigadadoslobos.gerenciador.domains.dtos.summarys.MemberSummaryDTO(" +
             "m.id, m.firstName, m.lastName, m.nickName, h.id, h.description) " +
             "FROM Member m " +
-            "LEFT JOIN m.headQuarter h")
+            "LEFT JOIN m.headQuarter h ")
+    List<MemberSummaryDTO> findAllByAdminSummary();
+
+    @Query("SELECT DISTINCT new br.com.brigadadoslobos.gerenciador.domains.dtos.summarys.MemberSummaryDTO(" +
+            "m.id, m.firstName, m.lastName, m.nickName, h.id, h.description) " +
+            "FROM Member m " +
+            "LEFT JOIN m.headQuarter h " +
+            "WHERE 0 NOT IN elements(m.profile) ")
     List<MemberSummaryDTO> findAllSummary();
 
     @Query("SELECT new br.com.brigadadoslobos.gerenciador.domains.dtos.summarys.MemberSummaryDTO(" +
             "m.id, m.firstName, m.lastName, m.nickName, h.id, h.description) " +
             "FROM Member m " +
             "LEFT JOIN m.headQuarter h "+
-            "where h.id = :headQuarterid")
+            "WHERE h.id = :headQuarterid AND 0 NOT IN elements(m.profile) ")
     Optional <List<MemberSummaryDTO>> findSummariesByHeadQuarterId(@Param("headQuarterid") Integer headQuarterid);
 }

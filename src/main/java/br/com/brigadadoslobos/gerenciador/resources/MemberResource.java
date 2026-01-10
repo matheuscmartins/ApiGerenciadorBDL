@@ -35,6 +35,12 @@ public class MemberResource {
         return ResponseEntity.ok().body(listDTO);
     }
     */
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping(value = "/admin")
+    public ResponseEntity<List<MemberSummaryDTO>> findAllByAdmin(){
+        List<MemberSummaryDTO> listDTO = service.findAllByAdmin();
+        return ResponseEntity.ok().body(listDTO);
+    }
     @GetMapping
     public ResponseEntity<List<MemberSummaryDTO>> findAll(){
         List<MemberSummaryDTO> listDTO = service.findAllSummary();

@@ -38,9 +38,10 @@ public class MemberService {
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+ id));
     }
 
-   /* public List<Member> findAll() {
-        return repository.findAll();
-    } */
+    public List<MemberSummaryDTO> findAllByAdmin() {
+        return repository.findAllByAdminSummary();
+    }
+
    public List<MemberSummaryDTO> findAllSummary() {
        return repository.findAllSummary();
    }

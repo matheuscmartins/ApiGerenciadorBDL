@@ -40,7 +40,7 @@ public class InfractionResource {
         return ResponseEntity.ok().body(listDTO);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'COMANDO')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'COMANDO', 'DIRETOR')")
     @PostMapping
     public ResponseEntity<InfractionDTO> create(@Valid @RequestBody InfractionDTO objDTO){
         Infraction newObj = service.create(objDTO);
